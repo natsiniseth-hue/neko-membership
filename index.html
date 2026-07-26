@@ -50,6 +50,18 @@
 
   /* falling sakura petals */
   .sakura-petals{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:1;}
+  .sakura-tree{position:fixed;inset:0;pointer-events:none;z-index:0;background-repeat:no-repeat;background-size:cover;background-position:right bottom;opacity:0;transition:opacity 1.2s ease;}
+  .sakura-tree.has-image{opacity:1;}
+  /* ม่านไล่เฉดขาวบางๆ ทับรูป ให้ตัวหนังสือ/การ์ดอ่านง่ายเสมอ */
+  .sakura-tree.has-image::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to right, rgba(255,248,250,.82) 0%, rgba(255,248,250,.55) 45%, rgba(255,248,250,.18) 100%);
+  }
+  @media (max-width:560px){
+    .sakura-tree.has-image::after{
+      background:linear-gradient(to bottom, rgba(255,248,250,.5) 0%, rgba(255,248,250,.28) 35%, rgba(255,248,250,.45) 100%);
+    }
+  }
   .petal{
     position:absolute;top:-8%;
     border-radius:0 60% 0 60%;
@@ -292,6 +304,20 @@
     width:40px;height:40px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;
   }
   .lightbox-close:hover{background:rgba(255,255,255,.28);}
+  .lightbox-nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    background:rgba(255,255,255,.16);border:none;color:#fff;
+    width:44px;height:44px;border-radius:50%;font-size:26px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;padding-bottom:4px;
+  }
+  .lightbox-nav:hover{background:rgba(255,255,255,.3);}
+  .lightbox-prev{left:12px;}
+  .lightbox-next{right:12px;}
+  .lightbox-counter{
+    position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
+    background:rgba(255,255,255,.16);color:#fff;font-size:12px;
+    padding:5px 14px;border-radius:999px;letter-spacing:1px;
+  }
 
   .booking-nav{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
   .booking-nav .nav-arrow{background:var(--surface2);border:1px solid var(--line);border-radius:10px;width:36px;height:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--sakura-dark);}
@@ -308,6 +334,32 @@
   .booking-chip:hover{border-color:var(--sakura);}
   .booking-chip .bc-name{font-weight:600;}
   .booking-chip .bc-meta{color:var(--muted);font-size:10.5px;}
+  .bc-tel{display:inline-block;margin-top:4px;font-size:11.5px;font-weight:600;color:var(--sakura-dark);text-decoration:none;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;}
+  .bc-tel:hover{border-color:var(--sakura);}
+  /* ---------- สถิติวันนี้บนหน้าแอดมิน ---------- */
+  .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+  .stat-card{background:linear-gradient(135deg,#fff,var(--surface2));border:1px solid var(--line);border-radius:14px;padding:12px 10px;text-align:center;box-shadow:0 3px 10px rgba(232,112,159,.07);}
+  .stat-card .st-label{font-size:10.5px;color:var(--muted);white-space:nowrap;}
+  .stat-card .st-value{font-size:19px;font-weight:700;color:var(--sakura-dark);margin-top:4px;}
+  /* ---------- เมนูหน้าแอดมินแบบกริด ---------- */
+  .dash-menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:16px;}
+  .dash-menu .btn{width:100%;white-space:nowrap;}
+  /* ---------- ปุ่มเมนูบริการแบบแตะครั้งเดียว ---------- */
+  .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:10px;}
+  .svc-chip{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:11px 8px;cursor:pointer;text-align:center;font-family:inherit;transition:transform .05s;}
+  .svc-chip:active{transform:scale(.96);}
+  .svc-chip:hover{border-color:var(--sakura);}
+  .svc-chip-name{font-weight:600;font-size:12.5px;color:var(--text);line-height:1.35;}
+  .svc-chip-price{font-size:14px;font-weight:700;color:var(--sakura-dark);margin-top:3px;}
+  .svc-chip-tag{font-size:9px;color:var(--muted);margin-top:2px;}
+  .svc-chip-custom{border-style:dashed;}
+  .svc-chip-custom.open{border-color:var(--sakura);background:#FDE7F0;}
+  .svc-custom-box{background:var(--surface2);border:1px dashed var(--line);border-radius:12px;padding:10px;margin-bottom:10px;}
+  .price-input-lg{font-size:17px;font-weight:700;}
+  .ci-price-wrap{display:flex;align-items:center;gap:2px;flex-shrink:0;}
+  .ci-baht{font-size:13px;font-weight:700;color:var(--sakura-dark);}
+  .ci-price-input{width:82px;text-align:right;font-weight:700;font-size:15px;padding:7px 8px;color:var(--sakura-dark);}
+  .ci-price-input.ci-price-zero{border-color:#E8A44B;background:#FFF6E8;}
   /* ---------- Lash Aftercare ---------- */
   .aftercare-entry{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--surface2),#FDE7F0);border:1px solid var(--line);border-radius:16px;padding:14px 16px;cursor:pointer;box-shadow:0 4px 14px rgba(232,112,159,.10);}
   .aftercare-entry:hover{border-color:var(--sakura);}
@@ -481,6 +533,7 @@
 
 <div class="neko-root">
   <div class="sakura-petals" id="petals"></div>
+  <div class="sakura-tree" id="sakuraTree" aria-hidden="true"></div>
   <div class="wrap" id="app"></div>
 </div>
 
@@ -615,7 +668,30 @@
   const app = document.getElementById('app');
 
   // ---------- petals ----------
+  // ---------- ต้นซากุระพื้นหลัง — ใช้รูป sakura.jpg ที่วางไว้ข้างๆ index.html ----------
+  // ถ้าไม่พบไฟล์รูป จะไม่มีต้นซากุระ (เหลือแค่กลีบปลิวตามปกติ) เพื่อไม่ให้หน้าจอพัง
+  function initSakuraTree(){
+    const host = document.getElementById('sakuraTree');
+    if(!host || host.dataset.ready) return;
+    host.dataset.ready = '1';
+    function probe(src){
+      return new Promise(resolve=>{
+        const t = new Image();
+        t.onload = ()=>resolve(src);
+        t.onerror = ()=>resolve(null);
+        t.src = src;
+      });
+    }
+    Promise.all([probe('sakura.jpg'), probe('sakura.png')]).then(([jpg, png])=>{
+      const src = jpg || png;
+      if(!src) return;
+      host.style.backgroundImage = `url('${src}')`;
+      host.classList.add('has-image');
+    });
+  }
+
   function initPetals(){
+    initSakuraTree();
     const wrap = document.getElementById('petals');
     if(!wrap || wrap.childElementCount>0) return;
     const colors = ['#F4B8CE','#F0A8C6','#FFD4E5','#E8709F','#F6C9DA'];
@@ -1288,6 +1364,94 @@
     });
   }
 
+  // ---------- ตัวเลือกบริการแบบแตะครั้งเดียว (ใช้ร่วมกันทั้งบิลสมาชิกและ Guest) ----------
+  // แตะปุ่มบริการ = ลงบิลทันทีด้วยราคาล่าสุดของบริการนั้น แล้วไปแก้ราคาในรายการได้เลย
+  function renderQuickServicePicker(itemForm, addToCart){
+    const wrap = el('div',{});
+    const grid = el('div',{class:'svc-grid'});
+    // เรียงปุ่มตามที่ใช้บ่อย — ตัวที่กดบ่อยสุดลอยขึ้นมาก่อน หาง่ายขึ้นเรื่อยๆ
+    const orderedServices = services.map((sv,i)=>({sv,i}))
+      .sort((a,b)=> (Number(b.sv.useCount)||0) - (Number(a.sv.useCount)||0) || a.i - b.i)
+      .map(x=>x.sv);
+    orderedServices.forEach(sv=>{
+      grid.appendChild(el('button',{class:'svc-chip', onclick:()=>{
+        addToCart({ serviceName: sv.name, price: Number(sv.defaultPrice)||0, discountEligible: sv.discountEligible!==false });
+        sv.useCount = (Number(sv.useCount)||0) + 1;
+        saveServices();
+        lastUsedServiceId = sv.id;
+        render();
+      }},[
+        el('div',{class:'svc-chip-name'}, sv.name),
+        el('div',{class:'svc-chip-price'}, (sv.defaultPrice!=null && sv.defaultPrice!=='') ? '฿'+money(sv.defaultPrice) : 'แตะแล้วใส่ราคา'),
+        sv.discountEligible===false ? el('div',{class:'svc-chip-tag'},'ไม่ร่วมส่วนลด') : null
+      ]));
+    });
+    const customOpen = itemForm.serviceId === '__custom__';
+    grid.appendChild(el('button',{class:'svc-chip svc-chip-custom'+(customOpen?' open':''), onclick:()=>{
+      itemForm.serviceId = customOpen ? '' : '__custom__';
+      render();
+    }},[
+      el('div',{class:'svc-chip-name'},'✏️ อื่นๆ'),
+      el('div',{class:'svc-chip-price'}, customOpen ? 'ปิดช่องพิมพ์' : 'พิมพ์เอง')
+    ]));
+    wrap.appendChild(grid);
+
+    if(customOpen){
+      const boxC = el('div',{class:'svc-custom-box'});
+      const nameInp = el('input',{type:'text', placeholder:'พิมพ์ชื่อบริการ'});
+      nameInp.value = itemForm.customName;
+      nameInp.addEventListener('input', e=>{ itemForm.customName = e.target.value; });
+      const priceInp = el('input',{type:'number', inputmode:'decimal', placeholder:'ราคาเต็ม (บาท)', min:'0', class:'price-input-lg', style:'margin-top:8px;'});
+      priceInp.value = itemForm.price;
+      priceInp.addEventListener('input', e=>{ itemForm.price = e.target.value; });
+      const eligRow = el('label',{class:'eligible-row'});
+      const eligChk = el('input',{type:'checkbox', style:'width:auto;'});
+      eligChk.checked = itemForm.eligible;
+      eligChk.addEventListener('change', e=>{ itemForm.eligible = e.target.checked; });
+      eligRow.appendChild(eligChk);
+      eligRow.appendChild(document.createTextNode('รายการนี้ร่วมส่วนลดได้'));
+      boxC.appendChild(nameInp);
+      boxC.appendChild(priceInp);
+      boxC.appendChild(eligRow);
+      boxC.appendChild(el('button',{class:'btn secondary block', style:'margin-top:8px;', onclick:()=>{
+        const price = parseFloat(itemForm.price);
+        const serviceName = itemForm.customName.trim();
+        if(!serviceName || isNaN(price) || price < 0){ showToast('พิมพ์ชื่อบริการและราคาให้ถูกต้อง'); return; }
+        addToCart({ serviceName, price, discountEligible: itemForm.eligible });
+        itemForm.customName = ''; itemForm.price = ''; itemForm.eligible = true;
+        render();
+      }},'+ เพิ่มลงรายการ'));
+      wrap.appendChild(boxC);
+    }
+    return wrap;
+  }
+
+  // รายการในบิล — แตะที่ราคาเพื่อแก้ได้เลย (อัปเดตยอดรวมเมื่อออกจากช่อง)
+  function renderCartRows(cart, opts){
+    opts = opts || {};
+    const list = el('div',{style:'margin-bottom:10px;'});
+    if(!cart.length) return list;
+    const curMonthKeyForCart = ymKey(new Date());
+    cart.forEach((it, idx)=>{
+      const alreadyUsedTier = opts.member && it.discountEligible!==false && serviceUsedTierDiscountThisMonth(opts.member, it.serviceName, curMonthKeyForCart);
+      const priceInp = el('input',{type:'number', inputmode:'decimal', min:'0', class:'ci-price-input'+((Number(it.price)||0)===0?' ci-price-zero':'')});
+      priceInp.value = it.price;
+      // อัปเดตค่าโดยไม่ re-render ระหว่างพิมพ์ (กันบั๊กโฟกัสหลุดบน Android) แล้วค่อยรีเฟรชยอดรวมตอนออกจากช่อง
+      priceInp.addEventListener('input', e=>{ it.price = Number(e.target.value)||0; });
+      priceInp.addEventListener('change', ()=>{ render(); });
+      list.appendChild(el('div',{class:'cart-item-row'},[
+        el('div',{class:'ci-name'},[
+          it.serviceName,
+          it.discountEligible===false ? el('span',{class:'ci-badge'},'ไม่ร่วมส่วนลด') : null,
+          alreadyUsedTier ? el('span',{class:'ci-badge', style:'background:#FFF3D6;color:#8A6A1F;'},'ใช้สิทธิ์ระดับเดือนนี้ไปแล้ว') : null,
+        ]),
+        el('div',{class:'ci-price-wrap'},[el('span',{class:'ci-baht'},'฿'), priceInp]),
+        el('button',{class:'close-x', onclick:()=>{ cart.splice(idx,1); render(); }},'✕')
+      ]));
+    });
+    return list;
+  }
+
   function saveTransaction(phone){
     const mem = members[phone];
     if(!mem) return;
@@ -1797,8 +1961,8 @@
       const galWrap = el('div',{class:'panel'});
       galWrap.appendChild(el('div',{class:'panel-title'},'🌸 โปรโมชั่นพิเศษวันนี้'));
       const gallery = el('div',{class:'promo-gallery'});
-      activeImages.forEach(p=>{
-        gallery.appendChild(el('div',{class:'promo-img-card', onclick:()=>{ lightboxImage = { dataUrl:p.dataUrl, caption:p.caption }; render(); }},[
+      activeImages.forEach((p, pi)=>{
+        gallery.appendChild(el('div',{class:'promo-img-card', onclick:()=>{ lightboxImage = { list: activeImages.map(x=>({dataUrl:x.dataUrl, caption:x.caption})), idx: pi }; render(); }},[
           el('img',{src:p.dataUrl, alt:p.caption||'promotion', draggable:'false'}),
           p.caption ? el('div',{class:'promo-img-caption'}, p.caption) : null
         ]));
@@ -1819,6 +1983,13 @@
 
     const panel = el('div',{class:'panel'});
     panel.appendChild(el('div',{class:'panel-title'},'กรอกเบอร์โทรของคุณ'));
+    // จำเบอร์ล่าสุดของเครื่องนี้ไว้ เปิดแอปมาก็เห็นสิทธิ์ตัวเองเลย ไม่ต้องพิมพ์ใหม่
+    if(!customerPhone && customerResult === null){
+      try{
+        const savedP = localStorage.getItem('neko_last_phone_v1');
+        if(savedP && members[savedP]){ customerPhone = savedP; customerResult = members[savedP]; }
+      }catch(e){}
+    }
     const phoneInput = el('input',{type:'tel', placeholder:'เบอร์โทรศัพท์ เช่น 0891234567'});
     phoneInput.value = customerPhone;
     const doCheck = ()=>{
@@ -1826,6 +1997,9 @@
       customerPhone = phoneInput.value;
       if(!p){ phoneInput.focus(); return; }
       customerResult = members[p] || 'notfound';
+      if(customerResult !== 'notfound'){
+        try{ localStorage.setItem('neko_last_phone_v1', p); }catch(e){}
+      }
       render();
     };
     phoneInput.addEventListener('keydown', (e)=>{ if(e.key==='Enter') doCheck(); });
@@ -1834,6 +2008,13 @@
       el('button',{class:'btn', onclick:doCheck},'ตรวจสอบสิทธิ์'),
     ]);
     panel.appendChild(row);
+    if(customerResult && typeof customerResult === 'object'){
+      panel.appendChild(el('div',{style:'text-align:right;margin-top:6px;'},
+        el('button',{class:'link-btn', style:'font-size:11px;', onclick:()=>{
+          try{ localStorage.removeItem('neko_last_phone_v1'); }catch(e){}
+          customerPhone=''; customerResult=null; render();
+        }},'ไม่ใช่คุณ? เปลี่ยนเบอร์')));
+    }
     app.appendChild(panel);
 
     if(!(customerResult && typeof customerResult === 'object')){
@@ -2148,6 +2329,34 @@
     ]);
     app.appendChild(header);
 
+    // ---- สรุปวันนี้แบบเห็นทันทีที่เข้าหน้าแอดมิน ----
+    {
+      const nowD = new Date();
+      const p2 = n=>String(n).padStart(2,'0');
+      const todayStr = `${nowD.getFullYear()}-${p2(nowD.getMonth()+1)}-${p2(nowD.getDate())}`;
+      const sameDay = ts => {
+        if(!ts) return false;
+        const d = new Date(ts);
+        return `${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}` === todayStr;
+      };
+      let salesToday = 0, billsToday = 0;
+      Object.keys(members).forEach(ph=>{
+        ((members[ph]||{}).transactions||[]).forEach(t=>{
+          if(sameDay(t.timestamp)){ salesToday += Number(t.totalFinal)||0; billsToday++; }
+        });
+      });
+      (guestTransactions||[]).forEach(t=>{
+        if(sameDay(t.timestamp)){ salesToday += Number(t.totalFinal)||0; billsToday++; }
+      });
+      const nowMin = nowD.getHours()*60 + nowD.getMinutes();
+      const remainQ = getBookingsForDate(todayStr).filter(b=> timeToMinutes(b.time) >= nowMin).length;
+      app.appendChild(el('div',{class:'stat-row'},[
+        el('div',{class:'stat-card'},[ el('div',{class:'st-label'},'💰 ยอดขายวันนี้'), el('div',{class:'st-value'},'฿'+money(salesToday)) ]),
+        el('div',{class:'stat-card'},[ el('div',{class:'st-label'},'🧾 บิลวันนี้'), el('div',{class:'st-value'}, billsToday+'') ]),
+        el('div',{class:'stat-card', style:'cursor:pointer;', onclick:()=>{ modal='booking'; bookingView='summary'; render(); }},[ el('div',{class:'st-label'},'📅 คิวที่เหลือวันนี้'), el('div',{class:'st-value'}, remainQ+'') ]),
+      ]));
+    }
+
     const barButtons = [];
     barButtons.push(el('button',{class:'btn', onclick:()=>{ modal='booking'; bookingView='day'; render(); }},'📅 คิว'));
     if(isOwner){
@@ -2162,7 +2371,7 @@
       barButtons.push(el('button',{class:'btn', onclick:()=>{ modal='dashboard'; render(); }},'📊 แดชบอร์ด'));
     }
     barButtons.push(el('button',{class:'btn ghost', onclick:()=>{ clearSession(); currentRole=null; currentUsername=null; view='customer'; render(); }},'ออกจากระบบ'));
-    app.appendChild(el('div',{class:'add-row', style:'justify-content:center;margin-bottom:16px;'}, barButtons));
+    app.appendChild(el('div',{class:'dash-menu'}, barButtons));
 
     // add member panel
     const panel = el('div',{class:'panel'});
@@ -2189,75 +2398,9 @@
     guestPanel.appendChild(el('div',{style:'font-size:11.5px;color:var(--muted);margin-bottom:10px;line-height:1.6;'},
       'สำหรับลูกค้าที่ไม่ต้องการให้เบอร์โทร ยอดขายจะถูกรวมในแดชบอร์ด แต่จะไม่ได้รับสิทธิ์ระดับสมาชิกหรือส่วนลดระดับ'));
 
-    if(guestTxCart.length){
-      const gCartList = el('div',{style:'margin-bottom:10px;'});
-      guestTxCart.forEach((it, idx)=>{
-        gCartList.appendChild(el('div',{class:'cart-item-row'},[
-          el('div',{class:'ci-name'},[
-            it.serviceName,
-            it.discountEligible===false ? el('span',{class:'ci-badge'},'ไม่ร่วมส่วนลด') : null
-          ]),
-          el('div',{class:'ci-price'},'฿'+money(it.price)),
-          el('button',{class:'close-x', onclick:()=>{ guestTxCart.splice(idx,1); render(); }},'✕')
-        ]));
-      });
-      guestPanel.appendChild(gCartList);
-    }
-
-    const gServiceSelect = el('select',{});
-    gServiceSelect.appendChild(el('option',{value:''},'— เลือกประเภทบริการ —'));
-    services.forEach(sv=>{
-      gServiceSelect.appendChild(el('option',{value:sv.id}, sv.name + (sv.defaultPrice ? ` (฿${money(sv.defaultPrice)})` : '') + (sv.discountEligible===false ? ' [ไม่ร่วมส่วนลด]' : '')));
-    });
-    gServiceSelect.appendChild(el('option',{value:'__custom__'},'อื่นๆ (พิมพ์เอง)'));
-    gServiceSelect.value = guestTxItemForm.serviceId;
-
-    const gCustomInp = el('input',{type:'text', placeholder:'พิมพ์ชื่อบริการ'});
-    gCustomInp.value = guestTxItemForm.customName;
-    gCustomInp.style.display = (guestTxItemForm.serviceId==='__custom__') ? '' : 'none';
-    gCustomInp.addEventListener('input', e=>{ guestTxItemForm.customName = e.target.value; });
-
-    const gPriceInp = el('input',{type:'number', placeholder:'ราคาเต็ม (บาท)', min:'0'}); gPriceInp.value = guestTxItemForm.price;
-    gPriceInp.addEventListener('input', e=>{ guestTxItemForm.price = e.target.value; });
-
-    const gEligRow = el('label',{class:'eligible-row'});
-    const gEligChk = el('input',{type:'checkbox', style:'width:auto;'});
-    gEligChk.checked = guestTxItemForm.eligible;
-    gEligChk.addEventListener('change', e=>{ guestTxItemForm.eligible = e.target.checked; });
-    gEligRow.appendChild(gEligChk);
-    gEligRow.appendChild(document.createTextNode('รายการนี้ร่วมส่วนลดได้'));
-
-    gServiceSelect.addEventListener('change', e=>{
-      guestTxItemForm.serviceId = e.target.value;
-      gCustomInp.style.display = (guestTxItemForm.serviceId==='__custom__') ? '' : 'none';
-      if(guestTxItemForm.serviceId && guestTxItemForm.serviceId!=='__custom__'){
-        const sv = services.find(s=>s.id===guestTxItemForm.serviceId);
-        if(sv){
-          if(sv.defaultPrice != null){ guestTxItemForm.price = String(sv.defaultPrice); gPriceInp.value = guestTxItemForm.price; }
-          guestTxItemForm.eligible = sv.discountEligible !== false;
-          gEligChk.checked = guestTxItemForm.eligible;
-        }
-      }
-    });
-
-    guestPanel.appendChild(el('div',{class:'add-row'},[gServiceSelect]));
-    guestPanel.appendChild(el('div',{class:'add-row', style:'margin-top:8px;'},[gCustomInp]));
-    guestPanel.appendChild(el('div',{class:'add-row', style:'margin-top:8px;'},[gPriceInp]));
-    guestPanel.appendChild(gEligRow);
-
-    guestPanel.appendChild(el('button',{class:'btn secondary block', style:'margin-top:10px;', onclick:()=>{
-      const price = parseFloat(guestTxItemForm.price);
-      let serviceName = '';
-      let sv = null;
-      if(guestTxItemForm.serviceId === '__custom__') serviceName = guestTxItemForm.customName.trim();
-      else { sv = services.find(s=>s.id===guestTxItemForm.serviceId); serviceName = sv ? sv.name : ''; }
-      if(!serviceName || isNaN(price) || price < 0){ showToast('เลือกบริการและกรอกราคาให้ถูกต้อง'); return; }
-      guestTxCart.push({ serviceName, price, discountEligible: guestTxItemForm.eligible });
-      if(sv && sv.defaultPrice !== price){ sv.defaultPrice = price; saveServices(); }
-      if(sv) lastUsedServiceId = sv.id;
-      guestTxItemForm = freshItemForm();
-      render();
-    }},'+ เพิ่มลงรายการ'));
+    guestPanel.appendChild(el('div',{style:'font-size:11px;color:var(--muted);margin-bottom:10px;'},'แตะปุ่มบริการเพื่อลงบิลทันที • แตะที่ราคาในรายการเพื่อแก้ไข'));
+    guestPanel.appendChild(renderCartRows(guestTxCart, {}));
+    guestPanel.appendChild(renderQuickServicePicker(guestTxItemForm, item=>{ guestTxCart.push(item); }));
 
     if(guestTxCart.length){
       const gDiscSelect = el('select',{style:'margin-top:12px;'});
@@ -2477,82 +2620,28 @@
 
     box.appendChild(el('button',{class:'btn visit-log-btn', onclick:()=>{logVisit(m.phone);}},'บันทึกการมาใช้บริการเดือนนี้ (ไม่ระบุราคา)'));
 
+    // ลัดไปลงคิวนัดครั้งหน้า — ดึงชื่อ+เบอร์ลูกค้าคนนี้ไปให้อัตโนมัติ
+    box.appendChild(el('button',{class:'btn secondary block', style:'margin-top:8px;', onclick:()=>{
+      const nd = new Date();
+      const p2 = n=>String(n).padStart(2,'0');
+      const todayStr = `${nd.getFullYear()}-${p2(nd.getMonth()+1)}-${p2(nd.getDate())}`;
+      selectedPhone = null;
+      modal = 'booking';
+      bookingView = 'day';
+      bookingFocusDate = todayStr;
+      openAddBooking(todayStr, '');
+      bookingForm.phone = m.phone;
+      bookingForm.customerName = m.name || '';
+      render();
+    }},'📅 ลงคิวนัดครั้งหน้าให้ลูกค้าคนนี้'));
+
     // transaction form (cart — allows multiple services in one visit)
     const txPanel = el('div',{class:'tx-form'});
-    txPanel.appendChild(el('div',{style:'font-weight:700;font-size:13px;margin-bottom:10px;'},'บันทึกบริการ + ราคา'));
+    txPanel.appendChild(el('div',{style:'font-weight:700;font-size:13px;margin-bottom:4px;'},'บันทึกบริการ + ราคา'));
+    txPanel.appendChild(el('div',{style:'font-size:11px;color:var(--muted);margin-bottom:10px;'},'แตะปุ่มบริการเพื่อลงบิลทันที • แตะที่ราคาในรายการเพื่อแก้ไข'));
 
-    if(txCart.length){
-      const cartList = el('div',{style:'margin-bottom:10px;'});
-      const curMonthKeyForCart = ymKey(new Date());
-      txCart.forEach((it, idx)=>{
-        const alreadyUsedTier = it.discountEligible!==false && serviceUsedTierDiscountThisMonth(m, it.serviceName, curMonthKeyForCart);
-        cartList.appendChild(el('div',{class:'cart-item-row'},[
-          el('div',{class:'ci-name'},[
-            it.serviceName,
-            it.discountEligible===false ? el('span',{class:'ci-badge'},'ไม่ร่วมส่วนลด') : null,
-            alreadyUsedTier ? el('span',{class:'ci-badge', style:'background:#FFF3D6;color:#8A6A1F;'},'ใช้สิทธิ์ระดับเดือนนี้ไปแล้ว') : null,
-          ]),
-          el('div',{class:'ci-price'},'฿'+money(it.price)),
-          el('button',{class:'close-x', onclick:()=>{ txCart.splice(idx,1); render(); }},'✕')
-        ]));
-      });
-      txPanel.appendChild(cartList);
-    }
-
-    const serviceSelect = el('select',{});
-    serviceSelect.appendChild(el('option',{value:''},'— เลือกประเภทบริการ —'));
-    services.forEach(sv=>{
-      serviceSelect.appendChild(el('option',{value:sv.id}, sv.name + (sv.defaultPrice ? ` (฿${money(sv.defaultPrice)})` : '') + (sv.discountEligible===false ? ' [ไม่ร่วมส่วนลด]' : '')));
-    });
-    serviceSelect.appendChild(el('option',{value:'__custom__'},'อื่นๆ (พิมพ์เอง)'));
-    serviceSelect.value = txItemForm.serviceId;
-
-    const customInp = el('input',{type:'text', placeholder:'พิมพ์ชื่อบริการ'});
-    customInp.value = txItemForm.customName;
-    customInp.style.display = (txItemForm.serviceId==='__custom__') ? '' : 'none';
-    customInp.addEventListener('input', e=>{ txItemForm.customName = e.target.value; });
-
-    const priceInp = el('input',{type:'number', placeholder:'ราคาเต็ม (บาท)', min:'0'}); priceInp.value = txItemForm.price;
-    priceInp.addEventListener('input', e=>{ txItemForm.price = e.target.value; });
-
-    const eligRow = el('label',{class:'eligible-row'});
-    const eligChk = el('input',{type:'checkbox', style:'width:auto;'});
-    eligChk.checked = txItemForm.eligible;
-    eligChk.addEventListener('change', e=>{ txItemForm.eligible = e.target.checked; });
-    eligRow.appendChild(eligChk);
-    eligRow.appendChild(document.createTextNode('รายการนี้ร่วมส่วนลดได้'));
-
-    serviceSelect.addEventListener('change', e=>{
-      txItemForm.serviceId = e.target.value;
-      customInp.style.display = (txItemForm.serviceId==='__custom__') ? '' : 'none';
-      if(txItemForm.serviceId && txItemForm.serviceId !== '__custom__'){
-        const sv = services.find(s=>s.id===txItemForm.serviceId);
-        if(sv){
-          if(sv.defaultPrice != null && sv.defaultPrice !== ''){ txItemForm.price = String(sv.defaultPrice); priceInp.value = txItemForm.price; }
-          txItemForm.eligible = sv.discountEligible !== false;
-          eligChk.checked = txItemForm.eligible;
-        }
-      }
-    });
-
-    txPanel.appendChild(el('div',{class:'add-row'},[serviceSelect]));
-    txPanel.appendChild(el('div',{class:'add-row', style:'margin-top:8px;'},[customInp]));
-    txPanel.appendChild(el('div',{class:'add-row', style:'margin-top:8px;'},[priceInp]));
-    txPanel.appendChild(eligRow);
-
-    txPanel.appendChild(el('button',{class:'btn secondary block', style:'margin-top:10px;', onclick:()=>{
-      const price = parseFloat(txItemForm.price);
-      let serviceName = '';
-      let sv = null;
-      if(txItemForm.serviceId === '__custom__') serviceName = txItemForm.customName.trim();
-      else { sv = services.find(s=>s.id===txItemForm.serviceId); serviceName = sv ? sv.name : ''; }
-      if(!serviceName || isNaN(price) || price < 0){ showToast('เลือกบริการและกรอกราคาให้ถูกต้อง'); return; }
-      txCart.push({ serviceName, price, discountEligible: txItemForm.eligible });
-      if(sv && sv.defaultPrice !== price){ sv.defaultPrice = price; saveServices(); }
-      if(sv) lastUsedServiceId = sv.id;
-      txItemForm = freshItemForm();
-      render();
-    }},'+ เพิ่มลงรายการ'));
+    txPanel.appendChild(renderCartRows(txCart, { member: m }));
+    txPanel.appendChild(renderQuickServicePicker(txItemForm, item=>{ txCart.push(item); }));
 
     if(txCart.length){
       const discSelect = el('select',{style:'margin-top:12px;'});
@@ -3277,7 +3366,7 @@
         }},'↓');
         body.appendChild(el('div',{class:'promo-img-row'},[
           el('div',{style:'display:flex;flex-direction:column;align-items:center;'},[moveUpBtn, moveDownBtn]),
-          el('img',{class:'promo-img-thumb', src:p.dataUrl, style:'cursor:pointer;', onclick:()=>{ lightboxImage = { dataUrl:p.dataUrl, caption:p.caption }; render(); }}),
+          el('img',{class:'promo-img-thumb', src:p.dataUrl, style:'cursor:pointer;', onclick:()=>{ lightboxImage = { list: promoImages.map(x=>({dataUrl:x.dataUrl, caption:x.caption})), idx }; render(); }}),
           el('div',{class:'promo-img-info'},[capInp]),
           toggle,
           el('button',{class:'close-x', onclick:()=>{
@@ -3720,14 +3809,15 @@
       const imminent = isImminentBooking(b);
       const row = el('div',{class:'slot-row'+(imminent?' slot-row-imminent':'')});
       row.appendChild(el('div',{class:'slot-time'}, b.time));
-      const metaParts = [b.serviceName, b.phone, b.duration+' นาที'];
+      const metaParts = [b.serviceName, b.duration+' นาที'];
       if(b.assignedStaff) metaParts.push('👤 '+b.assignedStaff);
       if(b.createdBy) metaParts.push('✍️ ลงคิวโดย: '+b.createdBy);
       row.appendChild(el('div',{class:'slot-bookings'},[
         el('div',{class:'booking-chip', onclick:()=>openEditBooking(b)},[
           el('div',{},[
             el('div',{class:'bc-name'},[ b.customerName, imminent ? el('span',{class:'imminent-badge'},'⏰ ใกล้ถึงคิว') : null ]),
-            el('div',{class:'bc-meta'}, metaParts.filter(Boolean).join(' • '))
+            el('div',{class:'bc-meta'}, metaParts.filter(Boolean).join(' • ')),
+            b.phone ? el('a',{class:'bc-tel', href:'tel:'+b.phone, onclick:(e)=>e.stopPropagation()}, '📞 '+b.phone) : null
           ]),
           el('span',{style:'color:var(--muted);font-size:11px;'},'แก้ไข ›')
         ])
@@ -3849,12 +3939,58 @@
   }
 
   function renderLightbox(){
+    // รองรับทั้งแบบเก่า {dataUrl, caption} และแบบใหม่ {list:[{dataUrl,caption},...], idx}
+    const list = lightboxImage.list && lightboxImage.list.length
+      ? lightboxImage.list
+      : [{ dataUrl: lightboxImage.dataUrl, caption: lightboxImage.caption }];
+    let idx = Math.min(Math.max(0, lightboxImage.idx || 0), list.length - 1);
+
     const overlay = el('div',{class:'lightbox-overlay', onclick:(e)=>{ if(e.target===overlay){ lightboxImage=null; render(); } }});
     overlay.appendChild(el('button',{class:'lightbox-close', onclick:()=>{ lightboxImage=null; render(); }},'✕'));
-    overlay.appendChild(el('img',{class:'lightbox-img', src:lightboxImage.dataUrl, alt:lightboxImage.caption||'promotion'}));
-    if(lightboxImage.caption){
-      overlay.appendChild(el('div',{class:'lightbox-caption'}, lightboxImage.caption));
+
+    const img = el('img',{class:'lightbox-img', src:list[idx].dataUrl, alt:list[idx].caption||'promotion', draggable:'false'});
+    overlay.appendChild(img);
+    const caption = el('div',{class:'lightbox-caption', style:list[idx].caption?'':'display:none;'}, list[idx].caption||'');
+    overlay.appendChild(caption);
+
+    if(list.length > 1){
+      const counter = el('div',{class:'lightbox-counter'}, (idx+1)+' / '+list.length);
+      overlay.appendChild(counter);
+
+      // อัปเดตรูปในที่ ไม่ต้อง render ใหม่ทั้งหน้า จะได้เลื่อนลื่นๆ
+      const show = (newIdx)=>{
+        idx = (newIdx + list.length) % list.length; // วนลูป: สุดขวาแล้วกลับรูปแรก
+        lightboxImage.idx = idx;
+        img.src = list[idx].dataUrl;
+        img.alt = list[idx].caption || 'promotion';
+        caption.textContent = list[idx].caption || '';
+        caption.style.display = list[idx].caption ? '' : 'none';
+        counter.textContent = (idx+1)+' / '+list.length;
+      };
+
+      overlay.appendChild(el('button',{class:'lightbox-nav lightbox-prev', onclick:(e)=>{ e.stopPropagation(); show(idx-1); }},'‹'));
+      overlay.appendChild(el('button',{class:'lightbox-nav lightbox-next', onclick:(e)=>{ e.stopPropagation(); show(idx+1); }},'›'));
+
+      // ปัดซ้าย-ขวาบนมือถือ
+      let touchX = null, touchY = null;
+      overlay.addEventListener('touchstart', (e)=>{
+        if(e.touches.length !== 1) return;
+        touchX = e.touches[0].clientX;
+        touchY = e.touches[0].clientY;
+      }, {passive:true});
+      overlay.addEventListener('touchend', (e)=>{
+        if(touchX === null) return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        const dy = e.changedTouches[0].clientY - touchY;
+        touchX = null; touchY = null;
+        // ต้องปัดแนวนอนชัดๆ (กันชนกับการเลื่อนหน้าจอขึ้นลง)
+        if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)){
+          if(dx < 0) show(idx+1); // ปัดไปทางซ้าย = รูปถัดไป
+          else show(idx-1);       // ปัดไปทางขวา = รูปก่อนหน้า
+        }
+      }, {passive:true});
     }
+
     app.appendChild(overlay);
   }
 
