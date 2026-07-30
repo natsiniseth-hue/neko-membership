@@ -328,7 +328,7 @@
   .slot-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;background:var(--surface2);margin-bottom:8px;}
   .slot-row-imminent{background:#FFF3D6;border:1.5px solid var(--gold);}
   .imminent-badge{display:inline-block;margin-left:8px;font-size:10px;color:#8A6A1F;background:#FFE9AE;padding:2px 7px;border-radius:8px;font-weight:600;}
-  .slot-row .slot-time{font-family:'Trirong',serif;font-weight:700;color:var(--sakura-dark);width:52px;flex-shrink:0;font-size:13px;}
+  .slot-row .slot-time{font-family:'Trirong',serif;font-weight:700;color:var(--sakura-dark);width:74px;flex-shrink:0;font-size:12px;line-height:1.35;}
   .slot-row .slot-bookings{flex:1;display:flex;flex-direction:column;gap:6px;}
   .booking-chip{background:#fff;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;}
   .booking-chip:hover{border-color:var(--sakura);}
@@ -336,6 +336,23 @@
   .booking-chip .bc-meta{color:var(--muted);font-size:10.5px;}
   .bc-tel{display:inline-block;margin-top:4px;font-size:11.5px;font-weight:600;color:var(--sakura-dark);text-decoration:none;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;}
   .bc-tel:hover{border-color:var(--sakura);}
+  /* ---------- ช่วงเวลาว่างวันนี้ ---------- */
+  .free-ranges-panel{background:#F3FBF5;border:1px solid #CFEEDA;border-radius:14px;padding:12px 14px;margin-bottom:14px;}
+  .frp-title{font-size:12.5px;font-weight:700;color:#2E8B57;margin-bottom:8px;}
+  .frp-empty{font-size:12px;color:var(--muted);}
+  .frp-list{display:flex;gap:8px;flex-wrap:wrap;}
+  .frp-chip{background:#fff;border:1px solid #BFE8CF;border-radius:11px;padding:8px 12px;text-align:left;cursor:pointer;font-family:inherit;}
+  .frp-chip:hover{border-color:#2E8B57;}
+  .frp-chip:active{transform:scale(.97);}
+  .frp-range{font-size:12.5px;font-weight:700;color:#22693F;}
+  .frp-dur{font-size:10.5px;color:#4E9B70;margin-top:1px;}
+  .frp-hint{font-size:10.5px;color:var(--muted);margin-top:8px;}
+  /* ---------- ตัวเลือกระยะเวลาแบบชิป + preview เวลาจบ ในฟอร์มลงคิว ---------- */
+  .dur-chip-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+  .dur-chip{background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:12px;cursor:pointer;font-family:inherit;color:var(--text);}
+  .dur-chip.active{background:var(--sakura);border-color:var(--sakura);color:#fff;font-weight:700;}
+  .end-time-preview{font-size:12px;color:var(--sakura-dark);margin-top:6px;font-weight:600;}
+  .next-free-btn{background:none;border:none;color:var(--sakura-dark);text-decoration:underline;font-size:11px;cursor:pointer;font-family:inherit;padding:0;margin-top:4px;}
   /* ---------- สถิติวันนี้บนหน้าแอดมิน ---------- */
   .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
   .stat-card{background:linear-gradient(135deg,#fff,var(--surface2));border:1px solid var(--line);border-radius:14px;padding:12px 10px;text-align:center;box-shadow:0 3px 10px rgba(232,112,159,.07);}
@@ -825,6 +842,70 @@
   }
   function timeToMinutes(t){ const [h,m] = t.split(':').map(Number); return h*60+m; }
   function minutesToTime(m){ return pad(Math.floor(m/60))+':'+pad(m%60); }
+  // แสดงระยะเวลาแบบอ่านง่าย เช่น 90 -> "1 ชม. 30 นาที", 60 -> "1 ชม.", 45 -> "45 นาที"
+  function formatDurationTH(mins){
+    mins = Number(mins)||0;
+    const h = Math.floor(mins/60), m = mins%60;
+    if(h && m) return `${h} ชม. ${m} นาที`;
+    if(h) return `${h} ชม.`;
+    return `${m} นาที`;
+  }
+  // ช่วงเวลาเริ่ม–จบของคิว เช่น "10:00–11:30"
+  function bookingTimeRange(b){
+    const s = timeToMinutes(b.time), e = s + (Number(b.duration)||bookingConfig.slotMinutes);
+    return minutesToTime(s)+'–'+minutesToTime(Math.min(e,1440));
+  }
+  // หาช่วง "ว่าง" ของทั้งวัน (นับตามจำนวนคิวที่รับพร้อมกันได้ maxConcurrent) แม่นยำถึงนาที
+  // ขอบเขตการแสดงผลยึดเวลาเปิด-ปิดร้านเป็นหลัก แต่ขยายให้ครอบคลุมถ้ามีคิวนอกเวลาด้วย
+  // คืนค่าเป็น array ของ {start, end} หน่วยนาทีจากเที่ยงคืน เรียงจากเช้าไปดึก
+  function computeDayFreeRanges(dateStr){
+    const bks = getVisibleBookingsForDate(dateStr);
+    const cap = Math.max(1, Number(bookingConfig.maxConcurrent)||1);
+    let dayStart = timeToMinutes(bookingConfig.openTime||'09:00');
+    let dayEnd = timeToMinutes(bookingConfig.closeTime||'20:00');
+    bks.forEach(b=>{
+      const s = timeToMinutes(b.time);
+      const e = s + (Number(b.duration)||bookingConfig.slotMinutes);
+      if(s < dayStart) dayStart = s;
+      if(e > dayEnd) dayEnd = e;
+    });
+    dayStart = Math.max(0, dayStart);
+    dayEnd = Math.min(1440, dayEnd);
+    if(dayEnd <= dayStart) return [];
+
+    const points = new Set([dayStart, dayEnd]);
+    bks.forEach(b=>{
+      const s = Math.max(dayStart, timeToMinutes(b.time));
+      const e = Math.min(dayEnd, s + (Number(b.duration)||bookingConfig.slotMinutes));
+      if(e > dayStart && s < dayEnd){ points.add(s); points.add(e); }
+    });
+    const sorted = [...points].sort((a,b)=>a-b);
+    const ranges = [];
+    for(let i=0;i<sorted.length-1;i++){
+      const segStart = sorted[i], segEnd = sorted[i+1];
+      if(segEnd <= segStart) continue;
+      const mid = (segStart+segEnd)/2;
+      const count = bks.filter(b=>{
+        const s = timeToMinutes(b.time), e = s + (Number(b.duration)||bookingConfig.slotMinutes);
+        return s <= mid && mid < e;
+      }).length;
+      if(count < cap){
+        if(ranges.length && ranges[ranges.length-1].end === segStart) ranges[ranges.length-1].end = segEnd;
+        else ranges.push({ start: segStart, end: segEnd });
+      }
+    }
+    return ranges;
+  }
+  // หาเวลาที่ว่างเร็วที่สุด (ตั้งแต่ fromMinutes เป็นต้นไป) ที่รองรับระยะเวลา duration ได้พอดี
+  function nextFreeSlotFrom(dateStr, fromMinutes, duration){
+    duration = Number(duration) || bookingConfig.slotMinutes;
+    const ranges = computeDayFreeRanges(dateStr);
+    for(const r of ranges){
+      const start = Math.max(r.start, fromMinutes);
+      if(start + duration <= r.end) return start;
+    }
+    return Math.max(0, Math.min(1440-duration, fromMinutes));
+  }
   function generateSlots(){
     const slots = [];
     const start = timeToMinutes(bookingConfig.openTime);
@@ -3522,9 +3603,25 @@
     dateInp.addEventListener('change', e=>{ bookingForm.date = e.target.value; capacityNote(); });
     const timeInp = el('input',{type:'time'}); timeInp.value = bookingForm.time;
     const capacityMsg = el('div',{style:'font-size:11px;color:var(--danger);margin-top:4px;'});
+    const endTimePreview = el('div',{class:'end-time-preview'});
+    function updateEndPreview(){
+      const s = timeToMinutes(bookingForm.time);
+      const e = Math.min(1440, s + (Number(bookingForm.duration)||bookingConfig.slotMinutes));
+      endTimePreview.textContent = `⏱ ${bookingForm.time}–${minutesToTime(e)} (${formatDurationTH(bookingForm.duration||bookingConfig.slotMinutes)})`;
+    }
     function capacityNote(){
       const avail = isSlotAvailable(bookingForm.date, bookingForm.time, bookingForm.duration, bookingForm.id);
-      capacityMsg.textContent = avail ? '' : '⚠️ ช่วงเวลานี้เต็มแล้วตามจำนวนที่รับพร้อมกัน (ยังลงคิวซ้อนได้ถ้าต้องการ)';
+      capacityMsg.innerHTML = '';
+      if(!avail){
+        capacityMsg.appendChild(document.createTextNode('⚠️ ช่วงเวลานี้เต็มแล้วตามจำนวนที่รับพร้อมกัน (ยังลงคิวซ้อนได้ถ้าต้องการ) '));
+        const fromMin = timeToMinutes(bookingForm.time);
+        const suggested = nextFreeSlotFrom(bookingForm.date, fromMin, bookingForm.duration);
+        const suggBtn = el('button',{class:'next-free-btn', onclick:(e)=>{ e.preventDefault(); bookingForm.time = minutesToTime(suggested); timeInp.value = bookingForm.time; capacityNote(); updateEndPreview(); }},
+          `ว่างถัดไป ${minutesToTime(suggested)} — แตะเพื่อใช้เวลานี้`);
+        capacityMsg.appendChild(document.createElement('br'));
+        capacityMsg.appendChild(suggBtn);
+      }
+      updateEndPreview();
     }
     timeInp.addEventListener('change', e=>{ bookingForm.time = e.target.value; capacityNote(); });
     capacityNote();
@@ -3534,6 +3631,7 @@
       el('div',{class:'field'},[el('label',{},'เวลา (เลือกได้ทั้งวัน 24 ชม.)'), timeInp]),
     ]));
     box.appendChild(capacityMsg);
+    box.appendChild(endTimePreview);
 
     const nameInp = el('input',{type:'text', placeholder:'ชื่อลูกค้า'}); nameInp.value = bookingForm.customerName;
     nameInp.addEventListener('input', e=>{ bookingForm.customerName = e.target.value; });
@@ -3565,7 +3663,19 @@
     box.appendChild(el('div',{style:'margin-top:8px;'},[customInp]));
 
     const durInp = el('input',{type:'number', min:'15', step:'15'}); durInp.value = bookingForm.duration;
-    durInp.addEventListener('input', e=>{ bookingForm.duration = Number(e.target.value)||bookingConfig.slotMinutes; });
+    durInp.addEventListener('input', e=>{ bookingForm.duration = Number(e.target.value)||bookingConfig.slotMinutes; syncDurationChips(); capacityNote(); });
+    const durChipRow = el('div',{class:'dur-chip-row'});
+    const DUR_PRESETS = [30,45,60,90,120,150];
+    function syncDurationChips(){
+      [...durChipRow.children].forEach(c=>{
+        c.classList.toggle('active', Number(c.dataset.mins)===Number(bookingForm.duration));
+      });
+    }
+    DUR_PRESETS.forEach(mins=>{
+      const chip = el('button',{class:'dur-chip', onclick:(e)=>{ e.preventDefault(); bookingForm.duration = mins; durInp.value = mins; syncDurationChips(); capacityNote(); }}, formatDurationTH(mins));
+      chip.dataset.mins = mins;
+      durChipRow.appendChild(chip);
+    });
 
     // คิวดูรวมกันทั้งร้าน — ทุกคนเลือกได้ว่าคิวนี้เป็นของพนักงานคนไหน (ระบบบันทึกคนลงคิวแยกให้อัตโนมัติ)
     const staffSelect = el('select',{style:'margin-top:10px;'});
@@ -3579,7 +3689,8 @@
     staffSelect.value = bookingForm.assignedStaff;
     staffSelect.addEventListener('change', e=>{ bookingForm.assignedStaff = e.target.value; });
     box.appendChild(el('div',{class:'field', style:'margin-top:10px;'},[el('label',{},'พนักงานที่รับผิดชอบ'), staffSelect]));
-    box.appendChild(el('div',{class:'field', style:'margin-top:10px;'},[el('label',{},'ระยะเวลา (นาที)'), durInp]));
+    box.appendChild(el('div',{class:'field', style:'margin-top:10px;'},[el('label',{},'ระยะเวลา (นาที)'), durInp, durChipRow]));
+    syncDurationChips();
 
     const noteInp = el('textarea',{rows:'2', placeholder:'โน้ตเพิ่มเติม (ไม่บังคับ)', style:'width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);font-family:inherit;font-size:13px;margin-top:10px;resize:vertical;'});
     noteInp.value = bookingForm.note;
@@ -3736,10 +3847,10 @@
   }
   function renderSummaryRow(b){
     const imminent = isImminentBooking(b);
-    const metaParts = [b.serviceName, b.duration+' นาที'];
+    const metaParts = [b.serviceName, formatDurationTH(b.duration||bookingConfig.slotMinutes)];
     if(b.createdBy) metaParts.push('✍️ ลงคิวโดย: '+b.createdBy);
     return el('div',{class:'slot-row'+(imminent?' slot-row-imminent':''), onclick:()=>openEditBooking(b), style:'cursor:pointer;'},[
-      el('div',{class:'slot-time'}, b.time),
+      el('div',{class:'slot-time'}, bookingTimeRange(b)),
       el('div',{class:'slot-bookings'},[
         el('div',{},[
           el('div',{class:'bc-name'},[ b.customerName, imminent ? el('span',{class:'imminent-badge'},'⏰ ใกล้ถึงคิว') : null ]),
@@ -3783,7 +3894,7 @@
           cell.appendChild(el('div',{class:'tt-item'+(imminent?' imminent':''), onclick:()=>openEditBooking(b)},[
             el('div',{class:'n'}, b.customerName),
             b.serviceName ? el('div',{class:'m'}, b.serviceName) : null,
-            el('div',{class:'m'}, (b.duration||0)+' นาที'+(b.createdBy?' • ✍️ '+b.createdBy:''))
+            el('div',{class:'m'}, bookingTimeRange(b)+' • '+formatDurationTH(b.duration||bookingConfig.slotMinutes)+(b.createdBy?' • ✍️ '+b.createdBy:''))
           ]));
         });
         tr.appendChild(cell);
@@ -3800,7 +3911,17 @@
     if(isClosedDay(dateStr)){
       container.appendChild(el('div',{style:'font-size:11.5px;color:var(--gold);background:var(--surface2);padding:8px 12px;border-radius:10px;margin-bottom:10px;'},'📌 วันนี้ตั้งไว้เป็นวันปิดร้านประจำ (ยังลงคิวได้ตามปกติถ้ามีนัดพิเศษ)'));
     }
-    container.appendChild(el('button',{class:'btn block', style:'margin-bottom:14px;', onclick:()=>openAddBooking(dateStr, minutesToTime(Math.round((new Date().getHours()*60+new Date().getMinutes())/15)*15))},'+ ลงคิวใหม่ (เลือกเวลาได้ทั้งวัน)'));
+
+    // ---- ช่วงเวลาว่างวันนี้ — ตอบคำถาม "ว่างอีกทีกี่โมง" ตามระยะเวลาที่ลงไว้จริง ----
+    container.appendChild(renderFreeRangesPanel(dateStr));
+
+    container.appendChild(el('button',{class:'btn block', style:'margin-bottom:14px;', onclick:()=>{
+      const isToday = dateStr === new Date().toISOString().slice(0,10);
+      const now = new Date();
+      const fromMin = isToday ? (now.getHours()*60 + now.getMinutes()) : 0;
+      const start = nextFreeSlotFrom(dateStr, fromMin, bookingConfig.slotMinutes);
+      openAddBooking(dateStr, minutesToTime(start));
+    }},'+ ลงคิวใหม่ (เลือกเวลาได้ทั้งวัน)'));
     if(dayBookings.length===0){
       container.appendChild(el('div',{class:'empty'},'ยังไม่มีคิวในวันนี้'));
       return;
@@ -3808,8 +3929,11 @@
     dayBookings.forEach(b=>{
       const imminent = isImminentBooking(b);
       const row = el('div',{class:'slot-row'+(imminent?' slot-row-imminent':'')});
-      row.appendChild(el('div',{class:'slot-time'}, b.time));
-      const metaParts = [b.serviceName, b.duration+' นาที'];
+      row.appendChild(el('div',{class:'slot-time'},[
+        el('div',{}, bookingTimeRange(b)),
+        el('div',{style:'font-size:9.5px;font-weight:400;color:var(--muted);margin-top:2px;'}, formatDurationTH(b.duration||bookingConfig.slotMinutes))
+      ]));
+      const metaParts = [b.serviceName];
       if(b.assignedStaff) metaParts.push('👤 '+b.assignedStaff);
       if(b.createdBy) metaParts.push('✍️ ลงคิวโดย: '+b.createdBy);
       row.appendChild(el('div',{class:'slot-bookings'},[
@@ -3824,6 +3948,34 @@
       ]));
       container.appendChild(row);
     });
+  }
+
+  // แผงสรุปช่วงเวลาว่างของวันนั้น (คำนวณจากระยะเวลาแต่ละคิวจริง ไม่ใช่แค่นับจำนวน)
+  function renderFreeRangesPanel(dateStr){
+    const box = el('div',{class:'free-ranges-panel'});
+    box.appendChild(el('div',{class:'frp-title'},'🟢 ช่วงเวลาว่างวันนี้'));
+    const bks = getVisibleBookingsForDate(dateStr);
+    if(bks.length === 0){
+      box.appendChild(el('div',{class:'frp-empty'},'ว่างทั้งวัน ยังไม่มีคิว'));
+      return box;
+    }
+    const ranges = computeDayFreeRanges(dateStr);
+    // ตัดช่วงว่างที่สั้นกว่า 10 นาทีทิ้ง กันรกจอ (ช่องว่างเสี้ยววินาทีระหว่างคิวติดกัน)
+    const shown = ranges.filter(r => (r.end - r.start) >= 10);
+    if(shown.length === 0){
+      box.appendChild(el('div',{class:'frp-empty'},'คิวเต็มวันนี้ ไม่มีช่วงว่างเหลือแล้ว'));
+      return box;
+    }
+    const wrap = el('div',{class:'frp-list'});
+    shown.forEach(r=>{
+      wrap.appendChild(el('button',{class:'frp-chip', onclick:()=>openAddBooking(dateStr, minutesToTime(r.start))},[
+        el('div',{class:'frp-range'}, minutesToTime(r.start)+'–'+minutesToTime(r.end)),
+        el('div',{class:'frp-dur'}, 'ว่าง '+formatDurationTH(r.end-r.start))
+      ]));
+    });
+    box.appendChild(wrap);
+    box.appendChild(el('div',{class:'frp-hint'},'แตะช่วงว่างเพื่อลงคิวเริ่มเวลานั้นได้เลย'));
+    return box;
   }
 
   function renderBookingSettingsModal(){
