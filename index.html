@@ -186,6 +186,34 @@
   .audit-detail{display:flex;gap:12px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);flex-wrap:wrap;}
   .audit-detail-col{flex:1;min-width:140px;background:var(--surface2);border-radius:10px;padding:8px 10px;}
   .audit-detail-label{font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.3px;}
+  /* ---------- ลงเวลาเข้า-ออกงาน ---------- */
+  .clock-widget{background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:16px;}
+  .clock-status{display:flex;align-items:center;gap:10px;}
+  .clock-status.working{background:#EAFAF0;margin:-12px -14px;padding:12px 14px;border-radius:14px;}
+  .clock-dot{font-size:16px;flex-shrink:0;}
+  .clock-status-text{font-size:13px;font-weight:700;color:var(--text);}
+  .clock-status-sub{font-size:11px;color:var(--muted);margin-top:2px;}
+  .clock-status > div:nth-child(2){flex:1;}
+  .clock-summary{background:var(--surface2);border-radius:12px;padding:10px 12px;margin-bottom:10px;}
+  .clock-summary-row{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;}
+  .clock-row{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;}
+  .clock-row-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;}
+  .clock-row-name{font-size:12.5px;font-weight:700;color:var(--text);}
+  .clock-row-date{font-size:11px;color:var(--muted);}
+  .clock-row-hours{font-size:11.5px;font-weight:700;color:var(--sakura-dark);margin-left:auto;}
+  .clock-row-hours.working{color:#2E8B57;}
+  .clock-row-edit{display:flex;align-items:flex-end;gap:8px;flex-wrap:wrap;}
+  .clock-row-edit label{font-size:10px;color:var(--muted);}
+  .clock-row-edit input{font-size:11.5px;padding:6px 8px;}
+  .clock-edited-note{font-size:10px;color:var(--muted);margin-top:6px;font-style:italic;}
+  /* ---------- สรุปค่าจ้างพนักงาน ---------- */
+  .payroll-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;}
+  .payroll-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--line);}
+  .payroll-name{font-size:13.5px;font-weight:700;color:var(--text);}
+  .payroll-total{font-size:16px;font-weight:700;color:var(--sakura-dark);font-family:'Trirong',serif;}
+  .payroll-line{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding:3px 0;}
+  .payroll-line span:last-child{font-weight:600;color:var(--text);}
+  .payroll-hint{font-size:10.5px;color:var(--gold);background:#FFF6E8;border-radius:8px;padding:6px 8px;margin-top:6px;line-height:1.5;}
   .search-row input{flex:1;}
 
   .member-list{display:flex;flex-direction:column;gap:10px;}
@@ -374,9 +402,9 @@
   .next-free-btn{background:none;border:none;color:var(--sakura-dark);text-decoration:underline;font-size:11px;cursor:pointer;font-family:inherit;padding:0;margin-top:4px;}
   /* ---------- สถิติวันนี้บนหน้าแอดมิน ---------- */
   .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
-  .stat-card{background:linear-gradient(135deg,#fff,var(--surface2));border:1px solid var(--line);border-radius:14px;padding:12px 10px;text-align:center;box-shadow:0 3px 10px rgba(232,112,159,.07);}
-  .stat-card .st-label{font-size:10.5px;color:var(--muted);white-space:nowrap;}
-  .stat-card .st-value{font-size:19px;font-weight:700;color:var(--sakura-dark);margin-top:4px;}
+  .mr-stat-card{background:linear-gradient(135deg,#fff,var(--surface2));border:1px solid var(--line);border-radius:14px;padding:12px 10px;text-align:center;box-shadow:0 3px 10px rgba(232,112,159,.07);}
+  .mr-stat-card .st-label{font-size:10.5px;color:var(--muted);white-space:nowrap;}
+  .mr-stat-card .st-value{font-size:19px;font-weight:700;color:var(--sakura-dark);margin-top:4px;}
   /* ---------- แถบเลือกวันดูยอดขายในแดชบอร์ด ---------- */
   .dash-date-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
   .dash-date-nav{background:var(--surface2);border:1px solid var(--line);border-radius:10px;width:34px;height:34px;font-size:18px;color:var(--sakura-dark);cursor:pointer;flex-shrink:0;font-family:inherit;}
@@ -576,6 +604,12 @@
   .pay-method-btn.active{border-color:var(--sakura);background:var(--sakura-pale);color:var(--sakura-dark);font-weight:600;}
 
   .promo-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;background:var(--surface2);padding:8px 10px;border-radius:10px;}
+  .pp-account-row{display:flex;gap:10px;align-items:center;margin-bottom:8px;background:var(--surface2);padding:10px 12px;border-radius:12px;border:1px solid var(--line);}
+  .pp-account-row.active{border-color:var(--sakura);background:#FDE7F0;}
+  .pp-account-radio{background:none;border:none;font-size:18px;color:var(--sakura);cursor:pointer;flex-shrink:0;font-family:inherit;line-height:1;padding:0;width:22px;}
+  .pp-account-info{flex:1;min-width:0;}
+  .pp-account-label{font-size:12.5px;font-weight:600;color:var(--text);}
+  .pp-account-value{font-size:11.5px;color:var(--muted);margin-top:2px;font-variant-numeric:tabular-nums;}
   .promo-row .promo-name{flex:1;font-size:13px;font-weight:600;}
   .promo-row .promo-pct{font-family:'Trirong',serif;color:var(--gold);font-weight:700;font-size:14px;}
   .switch{position:relative;width:38px;height:22px;flex-shrink:0;}
@@ -624,6 +658,7 @@
   const EMAILCFG_KEY = 'neko_email_config_v2';
   const GUEST_TX_KEY = 'neko_guest_transactions_v2';
   const AUDIT_LOG_KEY = 'neko_audit_log_v1';
+  const TIMECLOCK_KEY = 'neko_timeclock_v1';
   const PROMO_IMAGES_KEY = 'neko_promo_images_v2';
   const DASHLABELS_KEY = 'neko_dashboard_labels_v2';
   const BOOKINGS_KEY = 'neko_bookings_v2';
@@ -656,6 +691,12 @@
   let auditLogFilterStaff = 'all';
   let auditLogFilterAction = 'all'; // 'all' | 'create' | 'edit' | 'delete'
   let auditLogExpandedId = null;
+  // ---------- ระบบลงเวลาเข้า-ออกงานพนักงาน ----------
+  let timeRecords = []; // {id, username, date:'YYYY-MM-DD' (ของวันที่เข้างาน), clockIn: iso, clockOut: iso|null, note:'', editedBy:null, editedAt:null}
+  let timeFilterStaff = 'all';
+  let timeFilterRange = 'month'; // 'week' | 'month' | 'all'
+  let payrollFilterStaff = 'all';
+  let payrollFilterRange = 'month'; // 'week' | 'month' | 'all'
   let promoImages = []; // {id, dataUrl, caption, active, createdAt}
 
   const DEFAULT_DASH_LABELS = {
@@ -684,7 +725,7 @@
   let bookingReminderTimer = null;
   let bookingForm = null; // {id?, phone, customerName, serviceId, customName, date, time, duration, note}
   let customerQueueDate = null;
-  let promptpayConfig = { id:'' }; // เบอร์โทร หรือเลขบัตรประชาชนที่ผูก PromptPay ของร้าน
+  let promptpayConfig = { accounts: [], activeId: null }; // accounts:[{id,label,value}] — เก็บได้หลายบัญชี (เช่น เบอร์โทรปัจจุบัน + บัญชีร้านสำรองไว้ในอนาคต) เลือกได้ว่าอันไหน "ใช้งานอยู่"
   let qrPaymentView = null; // { amount, openAmount } เมื่อต้องการแสดง QR ให้ลูกค้าสแกน — openAmount:true = ไม่ระบุยอดในคิวอาร์ ให้ลูกค้ากรอกเอง (เผื่อทิป)
   const DEFAULT_VAT_CONFIG = { enabled:false, rate:7, mode:'inclusive' }; // mode: 'inclusive' ราคารวม VAT แล้ว | 'exclusive' บวก VAT เพิ่ม
   let vatConfig = { ...DEFAULT_VAT_CONFIG };
@@ -940,10 +981,17 @@
     if(h) return `${h} ชม.`;
     return `${m} นาที`;
   }
+  // ช่วงเวลาเริ่ม-จบ รองรับกรณีข้ามเที่ยงคืน (เช่น 22:00 + 4 ชม. = จบ 02:00 ของอีกวัน ไม่ใช่ตัดที่ 24:00)
+  function formatTimeRangeWrap(startMin, duration){
+    const endRaw = startMin + (Number(duration)||0);
+    const endWrapped = ((endRaw % 1440) + 1440) % 1440;
+    const spillsToNextDay = endRaw >= 1440;
+    return minutesToTime(startMin) + '–' + minutesToTime(endWrapped) + (spillsToNextDay ? ' (+1 วัน)' : '');
+  }
   // ช่วงเวลาเริ่ม–จบของคิว เช่น "10:00–11:30"
   function bookingTimeRange(b){
-    const s = timeToMinutes(b.time), e = s + (Number(b.duration)||bookingConfig.slotMinutes);
-    return minutesToTime(s)+'–'+minutesToTime(Math.min(e,1440));
+    const s = timeToMinutes(b.time);
+    return formatTimeRangeWrap(s, Number(b.duration)||bookingConfig.slotMinutes);
   }
   // หาช่วง "ว่าง" ของทั้งวัน (นับตามจำนวนคิวที่รับพร้อมกันได้ maxConcurrent) แม่นยำถึงนาที
   // ขอบเขตการแสดงผลยึดเวลาเปิด-ปิดร้านเป็นหลัก แต่ขยายให้ครอบคลุมถ้ามีคิวนอกเวลาด้วย
@@ -1290,6 +1338,9 @@
     const rawAuditLog = await storageGet(AUDIT_LOG_KEY);
     auditLog = rawAuditLog ? JSON.parse(rawAuditLog) : [];
 
+    const rawTimeRecords = await storageGet(TIMECLOCK_KEY);
+    timeRecords = rawTimeRecords ? JSON.parse(rawTimeRecords) : [];
+
     const rawPromoImg = await storageGet(PROMO_IMAGES_KEY);
     promoImages = rawPromoImg ? JSON.parse(rawPromoImg) : [];
 
@@ -1303,7 +1354,19 @@
     bookingConfig = rawBookingCfg ? { ...DEFAULT_BOOKING_CONFIG, ...JSON.parse(rawBookingCfg) } : { ...DEFAULT_BOOKING_CONFIG };
 
     const rawPromptpay = await storageGet(PROMPTPAY_KEY);
-    promptpayConfig = rawPromptpay ? JSON.parse(rawPromptpay) : { id:'' };
+    if(rawPromptpay){
+      const parsed = JSON.parse(rawPromptpay);
+      if(parsed && Array.isArray(parsed.accounts)){
+        promptpayConfig = parsed; // รูปแบบใหม่อยู่แล้ว
+      } else if(parsed && parsed.id){
+        // ★ ย้ายข้อมูลจากรูปแบบเก่า (เก็บได้แค่เลขเดียว) มาเป็นรายการบัญชี ไม่ให้ของเดิมหาย
+        promptpayConfig = { accounts: [{ id:'legacy', label:'พร้อมเพย์หลัก', value: parsed.id }], activeId: 'legacy' };
+      } else {
+        promptpayConfig = { accounts: [], activeId: null };
+      }
+    } else {
+      promptpayConfig = { accounts: [], activeId: null };
+    }
 
     const rawVat = await storageGet(VAT_CONFIG_KEY);
     vatConfig = rawVat ? { ...DEFAULT_VAT_CONFIG, ...JSON.parse(rawVat) } : { ...DEFAULT_VAT_CONFIG };
@@ -1348,11 +1411,101 @@
     if(auditLog.length > AUDIT_LOG_MAX) auditLog.length = AUDIT_LOG_MAX;
     saveAuditLog();
   }
+
+  // ---------- ระบบลงเวลาเข้า-ออกงาน ----------
+  async function saveTimeRecords(){ await storageSet(TIMECLOCK_KEY, JSON.stringify(timeRecords)); }
+
+  // กะที่ยังไม่ลงเวลาออก ของพนักงานคนนี้ (ถ้ามี) — ใช้เช็คว่าตอนนี้ "กำลังทำงานอยู่" ไหม
+  function findOpenShift(username){
+    return timeRecords.find(r=>r.username===username && !r.clockOut) || null;
+  }
+  function clockIn(username){
+    if(!username) return;
+    if(findOpenShift(username)){ showToast('ลงเวลาเข้างานไปแล้ว ยังไม่ได้ลงเวลาออก'); return; }
+    const now = new Date();
+    timeRecords.unshift({
+      id: 'shift_'+now.getTime()+'_'+Math.floor(Math.random()*1000),
+      username, date: now.toISOString().slice(0,10),
+      clockIn: now.toISOString(), clockOut: null, note:'',
+      editedBy: null, editedAt: null,
+    });
+    saveTimeRecords();
+    showToast(`ลงเวลาเข้างานแล้ว 🟢 ${formatHM(now.toISOString())} น.`);
+    render();
+  }
+  function clockOut(username){
+    const shift = findOpenShift(username);
+    if(!shift){ showToast('ยังไม่ได้ลงเวลาเข้างาน'); return; }
+    shift.clockOut = new Date().toISOString();
+    saveTimeRecords();
+    const hrs = shiftHours(shift);
+    showToast(`ลงเวลาออกงานแล้ว ⚪ ทำงานไป ${formatHoursTH(hrs)}`);
+    render();
+  }
+  // จำนวนชั่วโมงทำงานของกะนี้ (ถ้ายังไม่ออกงาน คำนวณถึงเวลาปัจจุบัน)
+  function shiftHours(r){
+    const start = new Date(r.clockIn).getTime();
+    const end = r.clockOut ? new Date(r.clockOut).getTime() : Date.now();
+    return Math.max(0, (end - start) / 3600000);
+  }
+  function formatHM(iso){
+    const d = new Date(iso);
+    return pad(d.getHours())+':'+pad(d.getMinutes());
+  }
+  function formatHoursTH(hrs){
+    const h = Math.floor(hrs);
+    const m = Math.round((hrs - h) * 60);
+    if(h && m) return `${h} ชม. ${m} นาที`;
+    if(h) return `${h} ชม.`;
+    return `${m} นาที`;
+  }
+
+  // ★ คำนวณค่าจ้างของพนักงาน 1 คน ในช่วงเวลาที่เลือก = ค่าแรงตามชั่วโมง + ค่าคอมมิชชั่นจากยอดขาย + ทิปที่ได้รับทั้งหมด
+  function computeStaffPayroll(username, range, anchorDateStr){
+    const staffAcc = adminAuth && adminAuth.staff ? adminAuth.staff.find(s=>s.username===username) : null;
+    const hourlyRate = staffAcc ? (Number(staffAcc.hourlyRate)||0) : 0;
+    const commissionPercent = staffAcc ? (Number(staffAcc.commissionPercent)||0) : 0;
+
+    // ชั่วโมงทำงาน — นับเฉพาะกะที่ลงเวลาออกแล้ว (กะที่ยังทำงานอยู่ไม่นับ กันตัวเลขเปลี่ยนไปมาก่อนออกงานจริง)
+    const shifts = timeRecords.filter(r=> r.username===username && r.clockOut && inRange(r.clockIn, range, anchorDateStr));
+    const hoursWorked = shifts.reduce((s,r)=>s+shiftHours(r), 0);
+    const wagePay = hoursWorked * hourlyRate;
+
+    // ยอดขายที่ทำ (นับจากบิลที่พนักงานคนนี้เป็นคนคีย์) — ใช้ยอดสุทธิหลังหักส่วนลดแล้ว (ไม่รวมทิป)
+    const txs = allTransactionsFlat().filter(t=> t.createdBy===username && inRange(t.timestamp, range, anchorDateStr));
+    const salesTotal = txs.reduce((s,t)=> s + txTotals(t).totalFinal, 0);
+    const commissionPay = salesTotal * (commissionPercent/100);
+
+    // ทิปที่ลูกค้าให้ตรงๆ — เป็นของพนักงานคนนั้นทั้งหมด ไม่หักเปอร์เซ็นต์
+    const tipsTotal = txs.reduce((s,t)=> s + (txTotals(t).tipAmount||0), 0);
+
+    return {
+      username, hourlyRate, commissionPercent,
+      hoursWorked, wagePay,
+      salesTotal, billCount: txs.length, commissionPay,
+      tipsTotal,
+      totalPay: wagePay + commissionPay + tipsTotal,
+    };
+  }
+
   async function savePromoImages(){ await storageSet(PROMO_IMAGES_KEY, JSON.stringify(promoImages)); }
   async function saveDashLabels(){ await storageSet(DASHLABELS_KEY, JSON.stringify(dashLabels)); }
   async function saveBookings(){ await storageSet(BOOKINGS_KEY, JSON.stringify(bookings)); }
   async function saveBookingConfig(){ await storageSet(BOOKING_CONFIG_KEY, JSON.stringify(bookingConfig)); }
   async function savePromptpayConfig(){ await storageSet(PROMPTPAY_KEY, JSON.stringify(promptpayConfig)); }
+  // คืนค่าเลขพร้อมเพย์ของบัญชีที่ "ใช้งานอยู่" ตอนนี้ — ถ้าไม่ได้เลือกไว้ใช้ตัวแรกในลิสต์แทน
+  function activePromptPayValue(){
+    const accounts = promptpayConfig.accounts || [];
+    if(accounts.length===0) return '';
+    const active = accounts.find(a=>a.id===promptpayConfig.activeId);
+    return active ? active.value : accounts[0].value;
+  }
+  // จัดรูปแบบเบอร์โทร/เลขบัตรให้อ่านง่ายขึ้นตอนแสดงในลิสต์ (ไม่กระทบค่าที่เก็บจริง)
+  function formatPromptPayDisplay(v){
+    if(/^0[0-9]{9}$/.test(v)) return v.slice(0,3)+'-'+v.slice(3,6)+'-'+v.slice(6);
+    if(/^[0-9]{13}$/.test(v)) return v.slice(0,1)+'-'+v.slice(1,5)+'-'+v.slice(5,10)+'-'+v.slice(10,12)+'-'+v.slice(12);
+    return v;
+  }
   async function saveVatConfig(){ await storageSet(VAT_CONFIG_KEY, JSON.stringify(vatConfig)); }
   async function saveVisitRule(){ await storageSet(VISIT_RULE_KEY, JSON.stringify(visitRule)); }
 
@@ -1880,7 +2033,12 @@
     downloadCsv('neko_sales_'+ymKey(new Date())+'.csv', rows);
   }
   function exportFullBackupJson(){
-    downloadJson('neko_backup_'+ymKey(new Date())+'.json', { members, tiers, promotions, services, guestTransactions, exportedAt: new Date().toISOString() });
+    downloadJson('neko_backup_'+ymKey(new Date())+'.json', {
+      members, tiers, visitRule, promotions, promoImages, services,
+      guestTransactions, dashLabels, bookingConfig, bookings,
+      promptpayConfig, vatConfig, emailConfig, auditLog, timeRecords,
+      exportedAt: new Date().toISOString()
+    });
   }
 
   function inRange(iso, range, anchorDateStr){
@@ -1946,7 +2104,8 @@
 
     const now = new Date();
     const newMembersThisMonth = Object.values(members).filter(m=>{
-      const d = new Date(m.joinDate);
+      if(!m.joinDate) return false;
+      const d = parseIsoDate(m.joinDate);
       return d.getFullYear()===now.getFullYear() && d.getMonth()===now.getMonth();
     }).length;
 
@@ -2671,6 +2830,248 @@
   function closeMonthlyReport(){ modal=null; render(); }
 
   // แสดงรายละเอียดบิล (ก่อน/หลัง) แบบย่อ ไว้ในประวัติการเปลี่ยนแปลง
+  // การ์ดลงเวลาเข้า-ออกงาน — โชว์สถานะของคนที่ล็อกอินอยู่ตอนนี้ แตะปุ่มเดียวจบ
+  function renderTimeClockWidget(){
+    const box = el('div',{class:'clock-widget'});
+    const shift = findOpenShift(currentUsername);
+    if(shift){
+      box.appendChild(el('div',{class:'clock-status working'},[
+        el('span',{class:'clock-dot'},'🟢'),
+        el('div',{},[
+          el('div',{class:'clock-status-text'},'กำลังทำงานอยู่'),
+          el('div',{class:'clock-status-sub'}, `เข้างานเมื่อ ${formatHM(shift.clockIn)} น. • ทำงานแล้ว ${formatHoursTH(shiftHours(shift))}`),
+        ]),
+        el('button',{class:'btn secondary', onclick:()=>clockOut(currentUsername)},'ลงเวลาออกงาน'),
+      ]));
+    } else {
+      const todayShifts = timeRecords.filter(r=>r.username===currentUsername && r.date===new Date().toISOString().slice(0,10) && r.clockOut);
+      const doneToday = todayShifts.length>0;
+      box.appendChild(el('div',{class:'clock-status'},[
+        el('span',{class:'clock-dot'},'⚪'),
+        el('div',{},[
+          el('div',{class:'clock-status-text'}, doneToday ? 'เลิกงานแล้ววันนี้' : 'ยังไม่ได้ลงเวลาเข้างานวันนี้'),
+          doneToday ? el('div',{class:'clock-status-sub'}, `ทำงานไปทั้งหมด ${formatHoursTH(todayShifts.reduce((s,r)=>s+shiftHours(r),0))} วันนี้`) : null,
+        ]),
+        el('button',{class:'btn', onclick:()=>clockIn(currentUsername)},'ลงเวลาเข้างาน'),
+      ]));
+    }
+    return box;
+  }
+
+  function renderTimeclockModal(){
+    const overlay = el('div',{class:'overlay', onclick:(e)=>{ if(e.target===overlay){ modal=null; render(); } }});
+    const box = el('div',{class:'modal'});
+    box.appendChild(el('div',{class:'modal-head'},[
+      el('div',{class:'modal-title'},'🕐 ประวัติลงเวลาพนักงาน'),
+      el('button',{class:'close-x', onclick:()=>{ modal=null; render(); }},'✕')
+    ]));
+
+    const staffNames = [...new Set(timeRecords.map(r=>r.username).filter(Boolean))].sort();
+    const staffWrap = el('div',{class:'mf-chip-row'});
+    [{key:'all',label:'ทั้งหมด'}, ...staffNames.map(n=>({key:n,label:n}))].forEach(choice=>{
+      staffWrap.appendChild(el('button',{
+        class:'mf-chip'+(timeFilterStaff===choice.key?' active':''),
+        onclick:()=>{ timeFilterStaff = choice.key; render(); }
+      }, choice.label));
+    });
+    box.appendChild(staffWrap);
+
+    const rangeWrap = el('div',{class:'range-tabs'});
+    [{key:'week',label:'สัปดาห์นี้'},{key:'month',label:'เดือนนี้'},{key:'all',label:'ทั้งหมด'}].forEach(choice=>{
+      rangeWrap.appendChild(el('div',{
+        class:'range-tab'+(timeFilterRange===choice.key?' active':''),
+        onclick:()=>{ timeFilterRange = choice.key; render(); }
+      }, choice.label));
+    });
+    box.appendChild(rangeWrap);
+
+    const now = new Date();
+    const weekStartStr = startOfWeek(now.toISOString().slice(0,10));
+    const monthPrefix = ymKey(now);
+    const filtered = timeRecords.filter(r=>{
+      if(timeFilterStaff!=='all' && r.username!==timeFilterStaff) return false;
+      if(timeFilterRange==='week') return r.date >= weekStartStr;
+      if(timeFilterRange==='month') return r.date.startsWith(monthPrefix);
+      return true;
+    }).sort((a,b)=> b.clockIn.localeCompare(a.clockIn));
+
+    // สรุปชั่วโมงรวมต่อพนักงาน สำหรับช่วงที่กรองอยู่
+    const totalsByStaff = {};
+    filtered.forEach(r=>{ totalsByStaff[r.username] = (totalsByStaff[r.username]||0) + shiftHours(r); });
+    const totalsList = Object.entries(totalsByStaff).sort((a,b)=>b[1]-a[1]);
+    if(totalsList.length){
+      const sumBox = el('div',{class:'clock-summary'});
+      totalsList.forEach(([name,hrs])=>{
+        sumBox.appendChild(el('div',{class:'clock-summary-row'},[
+          el('span',{}, '👤 '+name), el('b',{}, formatHoursTH(hrs))
+        ]));
+      });
+      box.appendChild(sumBox);
+    }
+
+    box.appendChild(el('div',{class:'mf-result-count'}, `${filtered.length} รายการ`));
+
+    const list = el('div',{});
+    if(filtered.length===0){
+      list.appendChild(el('div',{class:'empty'},'ไม่พบข้อมูลลงเวลาที่ตรงเงื่อนไข'));
+    }
+    filtered.forEach(r=>{
+      const row = el('div',{class:'clock-row'});
+      const inInp = el('input',{type:'datetime-local'}); inInp.value = toDatetimeLocal(r.clockIn);
+      const outInp = el('input',{type:'datetime-local'}); if(r.clockOut) outInp.value = toDatetimeLocal(r.clockOut);
+      row.appendChild(el('div',{class:'clock-row-top'},[
+        el('span',{class:'clock-row-name'}, '👤 '+r.username),
+        el('span',{class:'clock-row-date'}, formatDateThaiShort(r.date)),
+        r.clockOut ? el('span',{class:'clock-row-hours'}, formatHoursTH(shiftHours(r))) : el('span',{class:'clock-row-hours working'},'กำลังทำงาน'),
+      ]));
+      row.appendChild(el('div',{class:'clock-row-edit'},[
+        el('div',{},[el('label',{},'เข้างาน'), inInp]),
+        el('div',{},[el('label',{},'ออกงาน'), outInp]),
+        el('button',{class:'btn ghost', onclick:()=>{
+          if(!inInp.value){ showToast('กรอกเวลาเข้างานก่อนค่ะ'); return; }
+          if(outInp.value && new Date(outInp.value) <= new Date(inInp.value)){
+            showToast('เวลาออกงานต้องอยู่หลังเวลาเข้างานค่ะ'); return;
+          }
+          r.clockIn = new Date(inInp.value).toISOString();
+          r.clockOut = outInp.value ? new Date(outInp.value).toISOString() : null;
+          r.date = r.clockIn.slice(0,10);
+          r.editedBy = currentUsername; r.editedAt = new Date().toISOString();
+          saveTimeRecords();
+          showToast('แก้ไขเวลาแล้ว ✓');
+          render();
+        }},'บันทึก'),
+        el('button',{class:'close-x', onclick:()=>{
+          timeRecords = timeRecords.filter(x=>x.id!==r.id);
+          saveTimeRecords(); render();
+        }},'✕'),
+      ]));
+      if(r.editedBy){
+        row.appendChild(el('div',{class:'clock-edited-note'}, `✏️ แก้ไขโดย ${r.editedBy} เมื่อ ${formatDateTime(r.editedAt)}`));
+      }
+      list.appendChild(row);
+    });
+    box.appendChild(list);
+
+    // เพิ่มรายการลงเวลาด้วยตัวเอง (เผื่อพนักงานลืมลงเวลา)
+    box.appendChild(el('div',{style:'font-size:12px;font-weight:700;color:var(--sakura-dark);margin:16px 0 8px;'},'+ เพิ่มรายการลงเวลาด้วยตัวเอง'));
+    const newStaffSel = el('select',{});
+    getAllStaffUsernames().forEach(u=> newStaffSel.appendChild(el('option',{value:u}, u)));
+    const newInInp = el('input',{type:'datetime-local'});
+    const newOutInp = el('input',{type:'datetime-local'});
+    box.appendChild(el('div',{class:'field-stack'},[
+      newStaffSel,
+      el('div',{},[el('label',{},'เข้างาน'), newInInp]),
+      el('div',{},[el('label',{},'ออกงาน (ไม่บังคับ)'), newOutInp]),
+    ]));
+    box.appendChild(el('button',{class:'btn ghost', style:'margin-top:8px;', onclick:()=>{
+      if(!newInInp.value){ showToast('กรอกเวลาเข้างานก่อนค่ะ'); return; }
+      if(newOutInp.value && new Date(newOutInp.value) <= new Date(newInInp.value)){
+        showToast('เวลาออกงานต้องอยู่หลังเวลาเข้างานค่ะ'); return;
+      }
+      const inIso = new Date(newInInp.value).toISOString();
+      timeRecords.unshift({
+        id:'shift_'+Date.now()+'_'+Math.floor(Math.random()*1000),
+        username: newStaffSel.value, date: inIso.slice(0,10),
+        clockIn: inIso, clockOut: newOutInp.value ? new Date(newOutInp.value).toISOString() : null,
+        note:'', editedBy: currentUsername, editedAt: new Date().toISOString(),
+      });
+      saveTimeRecords();
+      newInInp.value=''; newOutInp.value='';
+      showToast('เพิ่มรายการลงเวลาแล้ว ✓');
+      render();
+    }},'+ เพิ่มรายการ'));
+
+    box.appendChild(el('div',{class:'modal-actions', style:'margin-top:16px;'},[
+      el('button',{class:'btn secondary', style:'flex:1;', onclick:()=>{ modal=null; render(); }},'ปิด')
+    ]));
+    overlay.appendChild(box);
+    app.appendChild(overlay);
+  }
+  // แปลง ISO string เป็นรูปแบบที่ input datetime-local ต้องการ (คำนึงเขตเวลาท้องถิ่น)
+  function toDatetimeLocal(iso){
+    const d = new Date(iso);
+    const p2 = n=>String(n).padStart(2,'0');
+    return `${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}T${p2(d.getHours())}:${p2(d.getMinutes())}`;
+  }
+
+  // ★ สรุปค่าจ้างพนักงาน — ค่าแรงตามชั่วโมง + ค่าคอมมิชชั่นจากยอดขาย + ทิปที่ได้รับ รวมเป็นยอดที่ต้องจ่าย
+  function renderPayrollModal(){
+    const overlay = el('div',{class:'overlay', onclick:(e)=>{ if(e.target===overlay){ modal=null; render(); } }});
+    const box = el('div',{class:'modal'});
+    box.appendChild(el('div',{class:'modal-head'},[
+      el('div',{class:'modal-title'},'💰 สรุปค่าจ้างพนักงาน'),
+      el('button',{class:'close-x', onclick:()=>{ modal=null; render(); }},'✕')
+    ]));
+    box.appendChild(el('div',{style:'font-size:11.5px;color:var(--muted);margin-bottom:12px;line-height:1.6;'},
+      'รวมค่าแรงตามชั่วโมงที่ลงเวลาไว้ + ค่าคอมมิชชั่นจากยอดขายที่คีย์เอง + ทิปที่ลูกค้าให้ทั้งหมด — ตั้งอัตราค่าแรง/ชม. และ % คอมมิชชั่นได้ที่เมนู "👥 พนักงาน"'));
+
+    const staffNames = getAllStaffUsernames().filter(u => u !== (adminAuth.owner && adminAuth.owner.username));
+    const staffWrap = el('div',{class:'mf-chip-row'});
+    [{key:'all',label:'ทั้งหมด'}, ...staffNames.map(n=>({key:n,label:n}))].forEach(choice=>{
+      staffWrap.appendChild(el('button',{
+        class:'mf-chip'+(payrollFilterStaff===choice.key?' active':''),
+        onclick:()=>{ payrollFilterStaff = choice.key; render(); }
+      }, choice.label));
+    });
+    box.appendChild(staffWrap);
+
+    const rangeWrap = el('div',{class:'range-tabs'});
+    [{key:'week',label:'สัปดาห์นี้'},{key:'month',label:'เดือนนี้'},{key:'all',label:'ทั้งหมด'}].forEach(choice=>{
+      rangeWrap.appendChild(el('div',{
+        class:'range-tab'+(payrollFilterRange===choice.key?' active':''),
+        onclick:()=>{ payrollFilterRange = choice.key; render(); }
+      }, choice.label));
+    });
+    box.appendChild(rangeWrap);
+
+    if(staffNames.length===0){
+      box.appendChild(el('div',{class:'empty'},'ยังไม่มีบัญชีพนักงานเลย ไปเพิ่มที่เมนู "👥 พนักงาน" ก่อนนะคะ'));
+    } else {
+      const todayStr = new Date().toISOString().slice(0,10);
+      const shownStaff = payrollFilterStaff==='all' ? staffNames : [payrollFilterStaff];
+      const rows = shownStaff.map(u => computeStaffPayroll(u, payrollFilterRange, todayStr));
+
+      // สรุปยอดรวมทั้งหมดที่ต้องจ่าย (เผื่อดูหลายคนพร้อมกัน)
+      if(rows.length>1){
+        const grandTotal = rows.reduce((s,r)=>s+r.totalPay,0);
+        box.appendChild(el('div',{class:'clock-summary'},[
+          el('div',{class:'clock-summary-row'},[ el('span',{},'💰 รวมค่าจ้างทั้งหมดที่ต้องจ่าย'), el('b',{}, '฿'+money(grandTotal)) ])
+        ]));
+      }
+
+      rows.forEach(r=>{
+        const card = el('div',{class:'payroll-card'});
+        card.appendChild(el('div',{class:'payroll-card-head'},[
+          el('span',{class:'payroll-name'}, '👤 '+r.username),
+          el('span',{class:'payroll-total'}, '฿'+money(r.totalPay)),
+        ]));
+        card.appendChild(el('div',{class:'payroll-line'},[
+          el('span',{}, `ค่าแรง: ${formatHoursTH(r.hoursWorked)} × ฿${money(r.hourlyRate)}/ชม.`),
+          el('span',{}, '฿'+money(r.wagePay)),
+        ]));
+        card.appendChild(el('div',{class:'payroll-line'},[
+          el('span',{}, `ค่าคอม: ฿${money(r.salesTotal)} (${r.billCount} บิล) × ${r.commissionPercent}%`),
+          el('span',{}, '฿'+money(r.commissionPay)),
+        ]));
+        card.appendChild(el('div',{class:'payroll-line'},[
+          el('span',{}, '🎉 ทิปที่ได้รับ'),
+          el('span',{}, '฿'+money(r.tipsTotal)),
+        ]));
+        if(r.hourlyRate===0 && r.commissionPercent===0){
+          card.appendChild(el('div',{class:'payroll-hint'}, `ยังไม่ได้ตั้งอัตราค่าแรง/คอมมิชชั่นให้ ${r.username} — ไปตั้งได้ที่เมนู "👥 พนักงาน"`));
+        }
+        box.appendChild(card);
+      });
+    }
+
+    box.appendChild(el('div',{class:'modal-actions', style:'margin-top:16px;'},[
+      el('button',{class:'btn secondary', style:'flex:1;', onclick:()=>{ modal=null; render(); }},'ปิด')
+    ]));
+    overlay.appendChild(box);
+    app.appendChild(overlay);
+  }
+
+
   function renderTxSnapshotLines(snap){
     if(!snap) return el('div',{style:'font-size:11px;color:var(--muted);'},'(ไม่มีข้อมูล — รายการถูกสร้างใหม่)');
     const wrap = el('div',{});
@@ -2815,10 +3216,10 @@
     box.appendChild(el('div',{class:'mr-cmp '+cmpClass}, cmpText));
 
     box.appendChild(el('div',{class:'stat-row', style:'grid-template-columns:repeat(2,1fr);'},[
-      el('div',{class:'stat-card'},[ el('div',{class:'st-label'},'💰 ยอดขายรวม'), el('div',{class:'st-value'},'฿'+money(stats.total)) ]),
-      el('div',{class:'stat-card'},[ el('div',{class:'st-label'},'🧾 จำนวนบิล'), el('div',{class:'st-value'}, stats.bills+'') ]),
-      el('div',{class:'stat-card'},[ el('div',{class:'st-label'},'👥 ลูกค้าสมาชิกที่มา'), el('div',{class:'st-value'}, stats.uniqueCustomers+'') ]),
-      el('div',{class:'stat-card'},[ el('div',{class:'st-label'},'📈 เฉลี่ยต่อบิล'), el('div',{class:'st-value'},'฿'+money(Math.round(stats.avgPerBill))) ]),
+      el('div',{class:'mr-stat-card'},[ el('div',{class:'st-label'},'💰 ยอดขายรวม'), el('div',{class:'st-value'},'฿'+money(stats.total)) ]),
+      el('div',{class:'mr-stat-card'},[ el('div',{class:'st-label'},'🧾 จำนวนบิล'), el('div',{class:'st-value'}, stats.bills+'') ]),
+      el('div',{class:'mr-stat-card'},[ el('div',{class:'st-label'},'👥 ลูกค้าสมาชิกที่มา'), el('div',{class:'st-value'}, stats.uniqueCustomers+'') ]),
+      el('div',{class:'mr-stat-card'},[ el('div',{class:'st-label'},'📈 เฉลี่ยต่อบิล'), el('div',{class:'st-value'},'฿'+money(Math.round(stats.avgPerBill))) ]),
     ]));
 
     if(stats.bills > 0){
@@ -2881,6 +3282,9 @@
     ]);
     app.appendChild(header);
 
+    // ★ วิดเจ็ตลงเวลาเข้า-ออกงาน — ทุกคนที่ล็อกอินอยู่เห็นสถานะของตัวเอง
+    app.appendChild(renderTimeClockWidget());
+
     const barButtons = [];
     barButtons.push(el('button',{class:'btn', onclick:()=>{ modal='booking'; bookingView='day'; render(); }},'📅 คิว'));
     barButtons.push(el('button',{class:'btn', onclick:()=>{ modal='monthlyreport'; render(); }},'📊 รายงานรายเดือน'));
@@ -2891,10 +3295,12 @@
       barButtons.push(el('button',{class:'btn secondary', onclick:()=>{ modal='staff'; render(); }},'👥 พนักงาน'));
       barButtons.push(el('button',{class:'btn secondary', onclick:()=>{ modal='promoimages'; render(); }},'🖼 รูปโปรโมท'));
       barButtons.push(el('button',{class:'btn secondary', onclick:()=>{ modal='emailcfg'; render(); }}, emailConfig.url ? '✉️ อีเมล OTP ✓' : '✉️ อีเมล OTP'));
-      barButtons.push(el('button',{class:'btn secondary', onclick:()=>{ modal='promptpay'; render(); }}, promptpayConfig.id ? '💳 พร้อมเพย์ ✓' : '💳 พร้อมเพย์'));
+      barButtons.push(el('button',{class:'btn secondary', onclick:()=>{ modal='promptpay'; render(); }}, activePromptPayValue() ? '💳 พร้อมเพย์ ✓' : '💳 พร้อมเพย์'));
       barButtons.push(el('button',{class:'btn secondary', onclick:()=>{ modal='vat'; render(); }}, vatConfig.enabled ? `🧾 VAT ${vatConfig.rate}% ✓` : '🧾 VAT'));
       barButtons.push(el('button',{class:'btn', onclick:()=>{ modal='dashboard'; render(); }},'📊 แดชบอร์ด'));
       barButtons.push(el('button',{class:'btn secondary', onclick:()=>{ modal='auditlog'; render(); }},'🔍 ประวัติการเปลี่ยนแปลง'));
+      barButtons.push(el('button',{class:'btn secondary', onclick:()=>{ modal='timeclock'; render(); }},'🕐 ประวัติลงเวลาพนักงาน'));
+      barButtons.push(el('button',{class:'btn secondary', onclick:()=>{ modal='payroll'; render(); }},'💰 สรุปค่าจ้างพนักงาน'));
     }
     barButtons.push(el('button',{class:'btn ghost', onclick:()=>{ clearSession(); currentRole=null; currentUsername=null; view='customer'; render(); }},'ออกจากระบบ'));
     app.appendChild(el('div',{class:'dash-menu'}, barButtons));
@@ -2978,7 +3384,7 @@
         }
         gSummaryBtn.onclick = ()=>{ billSummaryView = { items:gItems, totalFull:gTotalFull, totalDiscount:gTotalDisc, totalFinal:gTotalFinal, deposit:gDeposit, amountDue:gAmountDue }; render(); };
         gQrBtnBox.innerHTML = '';
-        if(promptpayConfig.id && guestTxPaymentMethod==='promptpay'){
+        if(activePromptPayValue() && guestTxPaymentMethod==='promptpay'){
           gQrBtnBox.appendChild(el('button',{class:'btn secondary block', style:'margin-top:8px;', onclick:()=>{ qrPaymentView = { amount: gAmountDue, openAmount: true }; render(); }},`💳 แสดง QR พร้อมเพย์ (฿${money(gAmountDue)})`));
         }
         gTipLineBox.innerHTML = '';
@@ -3145,6 +3551,8 @@
     if(modal==='dashlabels' && isOwner){ renderDashLabelsModal(); }
     if(modal==='monthlyreport'){ renderMonthlyReportModal(); }
     if(modal==='auditlog' && isOwner){ renderAuditLogModal(); }
+    if(modal==='timeclock' && isOwner){ renderTimeclockModal(); }
+    if(modal==='payroll' && isOwner){ renderPayrollModal(); }
   }
 
   function renderDetailModal(m){
@@ -3299,7 +3707,7 @@
         }
         summaryBtn.onclick = ()=>{ billSummaryView = { items, totalFull, totalDiscount:totalDisc, totalFinal, deposit, amountDue }; render(); };
         qrBtnBox.innerHTML = '';
-        if(promptpayConfig.id && txPaymentMethod==='promptpay'){
+        if(activePromptPayValue() && txPaymentMethod==='promptpay'){
           qrBtnBox.appendChild(el('button',{class:'btn secondary block', style:'margin-top:8px;', onclick:()=>{ qrPaymentView = { amount: amountDue, openAmount: true }; render(); }},`💳 แสดง QR พร้อมเพย์ (฿${money(amountDue)})`));
         }
         tipLineBox.innerHTML = '';
@@ -3764,24 +4172,62 @@
       el('button',{class:'close-x', onclick:()=>{modal=null; render();}},'✕')
     ]));
     box.appendChild(el('div',{style:'font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.7;'},
-      'ใส่เบอร์โทรศัพท์ หรือเลขบัตรประชาชนที่ผูกกับบัญชี PromptPay ของร้าน ระบบจะสร้าง QR Code ให้ลูกค้าสแกนจ่ายตามยอดที่คำนวณได้พอดี ไม่ต้องพิมพ์จำนวนเงินเอง'));
+      'บันทึกเบอร์โทร/เลขบัตรประชาชนที่ผูก PromptPay ไว้ได้หลายบัญชี เช่น เก็บเบอร์ที่ใช้อยู่ตอนนี้ไว้อันหนึ่ง แล้วเผื่อบัญชีร้านค้าที่จะสมัครในอนาคตไว้อีกอันได้เลย — เลือกได้ว่าอันไหน "ใช้งานอยู่" ตอนสร้าง QR ให้ลูกค้าสแกน สลับไปมาได้ตลอดโดยไม่ต้องพิมพ์ใหม่'));
 
-    const idInp = el('input',{type:'text', placeholder:'เบอร์โทร เช่น 0812345678 หรือเลขบัตร ปชช. 13 หลัก'});
-    idInp.value = promptpayConfig.id;
-    box.appendChild(el('div',{class:'field-stack'},[idInp]));
+    const list = el('div',{});
+    function redrawList(){
+      list.innerHTML = '';
+      const accounts = promptpayConfig.accounts || [];
+      if(accounts.length===0){
+        list.appendChild(el('div',{class:'empty'},'ยังไม่ได้บันทึกบัญชี PromptPay ไว้เลย'));
+      }
+      accounts.forEach(acc=>{
+        const isActive = promptpayConfig.activeId === acc.id;
+        const row = el('div',{class:'pp-account-row'+(isActive?' active':'')});
+        row.appendChild(el('button',{
+          class:'pp-account-radio'+(isActive?' checked':''),
+          onclick:()=>{ promptpayConfig.activeId = acc.id; savePromptpayConfig(); redrawList(); }
+        }, isActive ? '●' : '○'));
+        row.appendChild(el('div',{class:'pp-account-info'},[
+          el('div',{class:'pp-account-label'}, acc.label + (isActive ? ' (ใช้งานอยู่)' : '')),
+          el('div',{class:'pp-account-value'}, formatPromptPayDisplay(acc.value)),
+        ]));
+        row.appendChild(el('button',{class:'close-x', onclick:()=>{
+          promptpayConfig.accounts = accounts.filter(a=>a.id!==acc.id);
+          if(promptpayConfig.activeId===acc.id){
+            promptpayConfig.activeId = promptpayConfig.accounts.length ? promptpayConfig.accounts[0].id : null;
+          }
+          savePromptpayConfig(); redrawList();
+        }},'✕'));
+        list.appendChild(row);
+      });
+    }
+    redrawList();
+    box.appendChild(list);
 
-    box.appendChild(el('div',{class:'modal-actions'},[
-      el('button',{class:'btn secondary', style:'flex:1;', onclick:()=>{modal=null; render();}},'ยกเลิก'),
-      el('button',{class:'btn', style:'flex:1;', onclick:()=>{
-        const digits = idInp.value.replace(/[-\s]/g,'');
-        if(digits && !/^0[0-9]{9}$/.test(digits) && !/^[0-9]{13}$/.test(digits)){
-          showToast('รูปแบบไม่ถูกต้อง: ใช้เบอร์โทร 10 หลัก หรือเลขบัตร 13 หลักเท่านั้น'); return;
-        }
-        promptpayConfig = { id: digits };
-        savePromptpayConfig();
-        modal=null; render();
-        showToast(digits ? 'บันทึกเลขพร้อมเพย์แล้ว' : 'ล้างการตั้งค่าแล้ว');
-      }},'บันทึก')
+    // ---- ฟอร์มเพิ่มบัญชีใหม่ ----
+    box.appendChild(el('div',{style:'font-size:12px;font-weight:700;color:var(--sakura-dark);margin:16px 0 8px;'},'+ เพิ่มบัญชี PromptPay'));
+    const labelInp = el('input',{type:'text', placeholder:'ชื่อเรียก เช่น "เบอร์โทรร้าน" หรือ "บัญชีร้านค้า (สำรอง)"'});
+    const valueInp = el('input',{type:'text', placeholder:'เบอร์โทร 10 หลัก หรือเลขบัตร ปชช. 13 หลัก', style:'margin-top:8px;'});
+    box.appendChild(el('div',{class:'field-stack'},[labelInp, valueInp]));
+    box.appendChild(el('button',{class:'btn ghost', style:'margin-top:8px;', onclick:()=>{
+      const digits = valueInp.value.replace(/[-\s]/g,'');
+      if(!digits){ showToast('กรอกเบอร์โทรหรือเลขบัตรก่อนค่ะ'); return; }
+      if(!/^0[0-9]{9}$/.test(digits) && !/^[0-9]{13}$/.test(digits)){
+        showToast('รูปแบบไม่ถูกต้อง: ใช้เบอร์โทร 10 หลัก หรือเลขบัตร 13 หลักเท่านั้น'); return;
+      }
+      const label = labelInp.value.trim() || (/^0[0-9]{9}$/.test(digits) ? 'เบอร์โทร' : 'เลขบัตรประชาชน');
+      const newAcc = { id:'pp_'+Date.now(), label, value: digits };
+      promptpayConfig.accounts = [...(promptpayConfig.accounts||[]), newAcc];
+      if(!promptpayConfig.activeId) promptpayConfig.activeId = newAcc.id; // บัญชีแรกที่เพิ่ม ตั้งเป็นใช้งานอยู่ให้เลย
+      savePromptpayConfig();
+      labelInp.value=''; valueInp.value='';
+      redrawList();
+      showToast('บันทึกบัญชี PromptPay แล้ว ✓');
+    }},'+ เพิ่มบัญชีนี้'));
+
+    box.appendChild(el('div',{class:'modal-actions', style:'margin-top:16px;'},[
+      el('button',{class:'btn secondary', style:'flex:1;', onclick:()=>{modal=null; render();}},'เสร็จสิ้น')
     ]));
     overlay.appendChild(box);
     app.appendChild(overlay);
@@ -3943,7 +4389,7 @@
     const overlay = el('div',{class:'overlay', onclick:(e)=>{ if(e.target===overlay){ qrPaymentView=null; render(); } }});
     const box = el('div',{class:'modal', style:'max-width:360px;background:transparent;box-shadow:none;padding:0;'});
 
-    if(!promptpayConfig.id){
+    if(!activePromptPayValue()){
       const plainBox = el('div',{class:'modal', style:'max-width:360px;text-align:center;'});
       plainBox.appendChild(el('div',{class:'modal-head'},[
         el('div',{class:'modal-title'},'สแกนจ่ายด้วย PromptPay'),
@@ -3971,7 +4417,7 @@
       el('span',{class:'qr-pp-en'},'PromptPay')
     ]));
     const qrImgWrap = el('div',{class:'qr-image-wrap'},[
-      el('img',{src:promptPayQrImageUrl(promptpayConfig.id, qrPaymentView.openAmount ? null : qrPaymentView.amount, 280), alt:'PromptPay QR'})
+      el('img',{src:promptPayQrImageUrl(activePromptPayValue(), qrPaymentView.openAmount ? null : qrPaymentView.amount, 280), alt:'PromptPay QR'})
     ]);
     card.appendChild(qrImgWrap);
     const amountLine = el('div',{class:'qr-amount'}, qrPaymentView.openAmount ? 'ยอดค่าบริการ ฿'+money(qrPaymentView.amount) : '฿'+money(qrPaymentView.amount));
@@ -4254,8 +4700,8 @@
     const endTimePreview = el('div',{class:'end-time-preview'});
     function updateEndPreview(){
       const s = timeToMinutes(bookingForm.time);
-      const e = Math.min(1440, s + (Number(bookingForm.duration)||bookingConfig.slotMinutes));
-      endTimePreview.textContent = `⏱ ${bookingForm.time}–${minutesToTime(e)} (${formatDurationTH(bookingForm.duration||bookingConfig.slotMinutes)})`;
+      const dur = Number(bookingForm.duration)||bookingConfig.slotMinutes;
+      endTimePreview.textContent = `⏱ ${formatTimeRangeWrap(s, dur)} (${formatDurationTH(dur)})`;
     }
     function capacityNote(){
       const avail = isSlotAvailable(bookingForm.date, bookingForm.time, bookingForm.duration, bookingForm.id);
@@ -4325,18 +4771,28 @@
       durChipRow.appendChild(chip);
     });
 
-    // คิวดูรวมกันทั้งร้าน — ทุกคนเลือกได้ว่าคิวนี้เป็นของพนักงานคนไหน (ระบบบันทึกคนลงคิวแยกให้อัตโนมัติ)
+    // คิวดูรวมกันทั้งร้าน — แต่การ "ผูกว่าเป็นคิวของใคร" พนักงานทั่วไปเลือกได้แค่ตัวเอง (หรือไม่ระบุ)
+    // เจ้าของร้านเท่านั้นที่มอบหมายคิวให้พนักงานคนอื่นได้ กันสับสนเรื่องยอดขาย/ค่าคอมมิชชั่นของแต่ละคน
     const staffSelect = el('select',{style:'margin-top:10px;'});
     staffSelect.appendChild(el('option',{value:''},'— ไม่ระบุพนักงาน —'));
-    getAllStaffUsernames().forEach(u=>{
+    const assignableStaff = currentRole==='owner' ? getAllStaffUsernames() : [currentUsername];
+    assignableStaff.forEach(u=>{
       let lbl = u;
       if(adminAuth && adminAuth.owner && u===adminAuth.owner.username) lbl = u+' (เจ้าของร้าน)';
       if(u===currentUsername) lbl += ' (ตัวคุณเอง)';
       staffSelect.appendChild(el('option',{value:u}, lbl));
     });
+    // ถ้าพนักงานเปิดคิวที่เดิมมอบหมายให้คนอื่นไว้ (เช่น เจ้าของลงให้เพื่อน) ให้เห็นชื่อเดิมไว้เฉยๆ แก้ไม่ได้ กันข้อมูลเพี้ยนโดยไม่ตั้งใจ
+    if(currentRole!=='owner' && bookingForm.assignedStaff && bookingForm.assignedStaff!==currentUsername && !assignableStaff.includes(bookingForm.assignedStaff)){
+      staffSelect.appendChild(el('option',{value:bookingForm.assignedStaff}, bookingForm.assignedStaff+' (มอบหมายไว้แล้ว)'));
+    }
     staffSelect.value = bookingForm.assignedStaff;
     staffSelect.addEventListener('change', e=>{ bookingForm.assignedStaff = e.target.value; });
     box.appendChild(el('div',{class:'field', style:'margin-top:10px;'},[el('label',{},'พนักงานที่รับผิดชอบ'), staffSelect]));
+    if(currentRole!=='owner'){
+      box.appendChild(el('div',{style:'font-size:10.5px;color:var(--muted);margin-top:4px;line-height:1.5;'},
+        '🔒 พนักงานลงคิวได้เฉพาะในนามตัวเองเท่านั้น ให้เจ้าของร้านเป็นคนมอบหมายคิวให้คนอื่นแทน'));
+    }
     box.appendChild(el('div',{class:'field', style:'margin-top:10px;'},[el('label',{},'ระยะเวลา (นาที)'), durInp, durChipRow]));
     syncDurationChips();
 
@@ -4912,6 +5368,8 @@
     ]));
     box.appendChild(el('div',{style:'font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.6;'},
       'พนักงานล็อกอินด้วยบัญชีตัวเอง ทำงานหน้าร้านได้ (เพิ่มสมาชิก เช็คอิน บันทึกบริการ+ราคา) แต่จะไม่เห็นเมนูตั้งค่าระดับส่วนลด โปรโมชั่น การลบสมาชิก และการแก้ไขประวัติย้อนหลัง'));
+    box.appendChild(el('div',{style:'font-size:11.5px;color:var(--sakura-dark);background:var(--surface2);border-radius:10px;padding:8px 12px;margin-bottom:14px;line-height:1.6;'},
+      '💰 ตั้งอัตราค่าแรง/ชม. และ % คอมมิชชั่นของแต่ละคนไว้ที่นี่ได้เลย ระบบจะใช้คำนวณในหน้า "สรุปค่าจ้างพนักงาน" ให้อัตโนมัติ (ทิปที่ลูกค้าให้ ระบบคิดให้ทั้งหมดอยู่แล้ว ไม่ต้องตั้งเพิ่ม)'));
 
     const list = el('div',{});
     function redrawList(){
@@ -4938,6 +5396,16 @@
             redrawList();
           }},'✕')
         ]));
+        const rateInp = el('input',{type:'number', min:'0', placeholder:'ค่าแรง/ชม.', style:'font-size:12px;padding:6px 8px;'});
+        rateInp.value = s.hourlyRate || '';
+        rateInp.addEventListener('change', async e=>{ s.hourlyRate = Number(e.target.value)||0; await saveAuth(); });
+        const commInp = el('input',{type:'number', min:'0', max:'100', placeholder:'% คอมมิชชั่น', style:'font-size:12px;padding:6px 8px;'});
+        commInp.value = s.commissionPercent || '';
+        commInp.addEventListener('change', async e=>{ s.commissionPercent = Number(e.target.value)||0; await saveAuth(); });
+        list.appendChild(el('div',{class:'add-row', style:'margin:-4px 0 10px;'},[
+          el('div',{class:'field'},[el('label',{},'ค่าแรง/ชม. (บาท)'), rateInp]),
+          el('div',{class:'field'},[el('label',{},'% คอมมิชชั่น'), commInp]),
+        ]));
       });
     }
     redrawList();
@@ -4955,7 +5423,7 @@
       if(pInp.value.length<6){ showToast('รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร'); return; }
       const salt = genSalt();
       const hash = await sha256Hex(salt+':'+pInp.value);
-      adminAuth.staff.push({ id:'st_'+Date.now(), username:uname, salt, hash });
+      adminAuth.staff.push({ id:'st_'+Date.now(), username:uname, salt, hash, hourlyRate:0, commissionPercent:0 });
       await saveAuth();
       uInp.value=''; pInp.value='';
       redrawList();
